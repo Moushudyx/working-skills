@@ -8,7 +8,7 @@ on:
   push:
     branches: [ master ]
     paths:
-      - "packages/*"  # 仅当 packages/ 变化时触发
+      - "packages/**"  # 仅当 packages/ 变化时触发
 
 permissions:
   contents: write
