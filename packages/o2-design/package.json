@@ -1,0 +1,16 @@
+{
+  "name": "@moushu/o2-design",
+  "version": "0.0.1",
+  "description": "O2 design skills package",
+  "main": "index.js",
+  "files": [
+    "skills",
+    "index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["skill","moushu","o2-design"],
+  "author": "",
+  "license": "MIT"
+}

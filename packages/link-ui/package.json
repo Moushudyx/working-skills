@@ -1,0 +1,16 @@
+{
+  "name": "@moushu/link-ui",
+  "version": "0.0.1",
+  "description": "Link UI skills package",
+  "main": "index.js",
+  "files": [
+    "skills",
+    "index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["skill","moushu","link-ui"],
+  "author": "",
+  "license": "MIT"
+}

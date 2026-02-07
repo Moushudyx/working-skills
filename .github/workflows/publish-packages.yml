@@ -1,0 +1,79 @@
+# 自动发布包到 NPM
+
+name: 🧿 Publish changed packages
+
+# 谢谢你 Fairy 🧿
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - "packages/*"  # 仅当 packages/ 变化时触发
+
+permissions:
+  contents: write
+  pull-requests: read
+
+# 不允许同时进行多个部署，跳过非正在运行、非最新队列的运行队列，且不取消正在运行的工作流
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # [Publishing packages with provenance via GitHub Actions](https://docs.npmjs.com/generating-provenance-statements)
+      contents: write # 创建 Release 要用这个权限
+    environment: production
+    steps:
+      - name: 📋️ Checkout code # 获取代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 📦 Setup Node # 安装 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: 🔎 Detect changed packages # 检查子包的 version 是否有变化
+        id: detect
+        run: |
+          set -e
+          echo "[]" > changed.json
+          pkgs=()
+          for pkg in packages/*; do
+            if [ -f "$pkg/package.json" ]; then
+              CURRENT=$(node -p "require('./$pkg/package.json').version")
+              git checkout HEAD^ -- "$pkg/package.json" || continue
+              PREV=$(node -p "require('./$pkg/package.json').version")
+              git checkout -f HEAD -- "$pkg/package.json"
+              if [ "$CURRENT" != "$PREV" ]; then
+                pkgs+=("$pkg")
+                echo "Package $pkg changed: $PREV -> $CURRENT"
+              fi
+            fi
+          done
+          if [ ${#pkgs[@]} -eq 0 ]; then
+            echo "No changed packages"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            printf '%s\n' "${pkgs[@]}" > changed.txt
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "changed_list=$(cat changed.txt)" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 🚀 Publish changed packages
+        if: steps.detect.outputs.changed == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -e
+          while IFS= read -r pkg; do
+            echo "Publishing $pkg"
+            cd "$pkg"
+            npm publish --access public --provenance
+            cd -
+          done < changed.txt

@@ -1,0 +1,16 @@
+{
+  "name": "@moushu/link-design",
+  "version": "0.0.1",
+  "description": "Link design skills package",
+  "main": "index.js",
+  "files": [
+    "skills",
+    "index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["skill","moushu","link-design"],
+  "author": "",
+  "license": "MIT"
+}
