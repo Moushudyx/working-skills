@@ -1,6 +1,6 @@
 {
   "name": "@moushu/o2-design",
-  "version": "0.0.1",
+  "version": "0.0.1-snapshot.1",
   "description": "O2 design skills package",
   "main": "index.js",
   "files": [
