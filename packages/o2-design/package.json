@@ -1,6 +1,6 @@
 {
   "name": "@moushu/o2-design",
-  "version": "0.0.1-snapshot.2",
+  "version": "0.0.1-snapshot.1",
   "description": "O2 design skills package",
   "main": "index.js",
   "files": [
@@ -11,6 +11,14 @@
     "access": "public"
   },
   "keywords": ["skill","moushu","o2-design"],
-  "author": "",
-  "license": "MIT"
+  "author": "moushu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Moushudyx/working-skills/issues"
+  },
+  "homepage": "https://github.com/Moushudyx/working-skills#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Moushudyx/working-skills.git"
+  }
 }

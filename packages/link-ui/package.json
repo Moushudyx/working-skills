@@ -11,6 +11,14 @@
     "access": "public"
   },
   "keywords": ["skill","moushu","link-ui"],
-  "author": "",
-  "license": "MIT"
+  "author": "moushu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Moushudyx/working-skills/issues"
+  },
+  "homepage": "https://github.com/Moushudyx/working-skills#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Moushudyx/working-skills.git"
+  }
 }
