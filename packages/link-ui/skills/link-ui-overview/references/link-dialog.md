@@ -1,11 +1,8 @@
----
-name: link-dialog
-description: link 中的对话框组件，弹出一个对话框(或者模态框), 包括link-dialog组件与$dialog服务
-metadata:
-  author: moushu
----
+# link-dialog 对话框
 
 link-dialog与ElementUI的el-dialog不兼容，避免混用，如果使用了$object服务，那么应该全部使用link-dialog实现
+
+link-dialog一般也会作为模态框使用
 
 ```vue
 <link-button label="toggle" @click="show = !show"/>
@@ -21,6 +18,8 @@ export default {
 	},
 }
 ```
+
+## 属性 Props
 
 | 属性名称 | 类型 | 可选值 | 默认值 | 说明 |
 | --- | --- | --- | --- | --- |
@@ -63,6 +62,8 @@ export default {
 | drawer | Boolean  | --- | --- | 是否以抽屉形式打开 |
 | draggable | Boolean  | --- | --- | 是否可拖拽 |
 
+## 事件 Events
+
 | 事件名 | 参数 | 说明 |
 | --- | --- | --- |
 | confirm | --- | 点击确认按钮事件 |
@@ -70,6 +71,8 @@ export default {
 | clickShadow | --- | 点击阴影区域事件 |
 | clickContent | --- | 点击弹框内容区域事件 |
 | beforeCloseHandler | --- | 弹框或者抽屉关闭前的钩子函数 |
+
+## 插槽 Slots
 
 | 插槽名称 | 说明 |
 | --- | --- |
@@ -83,7 +86,7 @@ export default {
 
 ## $dialog 服务
 
-弹框展示消息, 如果只是想展示一个 toast 那样的不占据页面中心的气泡提示, 需要使用 `link-msg` 技能中的 `$msg`
+弹框展示消息, 如果只是想展示一个 toast 那样的不占据页面中心的气泡提示, 需要参考 references/link-msg.md 中的 $msg 服务
 
 ```js
 this.$dialog.show('消息')
@@ -92,7 +95,7 @@ this.$dialog.error('错误消息')
 this.$dialog.warn('警告消息')
 this.$dialog.info('信息消息')
 
-// 这个比较特殊，如果用户点击了取消，则会返回一个 rejected 的 Promise 在异步函数中可能出现抛错所以需要处理
+// 这个比较特殊，如果用户点击了取消，则会返回一个 rejected 的 Promise, 在异步函数中可能出现抛错所以需要处理
 this.$dialog.promiseTip({
   title: '弹框标题',
   customTip: '弹框内容', // 如果填写了这个那么会覆盖 tip

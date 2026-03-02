@@ -1,11 +1,8 @@
----
-name: link-table
-description: link 中的列表组件, 功能很多但也很复杂, 列表页、详情页都有用到
-metadata:
-  author: moushu
----
+# link-table 列表
 
-最常用的是 link-auto-table 组件，支持分页、排序、筛选等功能
+列表组件中最常用的是 link-auto-table 组件，自带分页、排序、筛选等功能
+
+## 示例
 
 ```vue
 <template>
@@ -90,6 +87,8 @@ export default {
 ```
 
 link-auto-table 默认存在三个外观不同的查询功能，一个是列表左上角的查询（筛选栏），由 search 参数控制，可以用 filterName 控制在 date,time,number,input 四种类型中；一个是表格顶部的查询表单，由 formFilter 控制；还有一个是表头的筛选与排序（两部分组成，一个是上下箭头点击更改列表排序，一个是点击表头文字部分弹框，里面是所有可选的值，可以勾选并查询），由 sort 控制
+
+其中 link-table-column-lov 相关的值列表的部分, 参考 references/link-lov.md 中的说明
 
 ## 父子表
 
