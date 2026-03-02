@@ -22,11 +22,11 @@ metadata:
 
 ID: link 项目中所有数据都一个 id 字段, 是一个永远不会重复的长数字字段(一般当作字符串处理), 关联子表时往往使用 headId 来指示自己的父级数据
 
-安全性: (重要概念)在PC端配置, 每个菜单都有安全性控制, link-table 会自动响应相关配置, 变更自己的默认查询参数、默认按钮; 比如某个页面对某个用户配置了“我组织及下级组织数据”的安全性, 那么列表查询时的 oauth 参数会自动编程"MT_ORG"(或者"MY_ORG_拼接一串特殊参数"), 如果页面安全性配置了不允许编辑, 那么列表的编辑按钮会自动隐藏(还有双击编辑功能也会失效)
+安全性: **(重要概念)**在PC端配置, 每个菜单都有安全性控制, link-table 等组件会自动响应相关配置, 变更自己的默认查询参数、默认按钮等; 比如某个页面对某个用户配置了“我组织及下级组织数据”的安全性, 那么列表查询时的 oauth 参数会自动编程"MT_ORG"(或者"MY_ORG_拼接一串特殊参数"), 如果页面安全性配置了不允许编辑, 那么列表的编辑按钮会自动隐藏(还有双击编辑功能也会失效)
 
-值列表: (重要概念)也称 lov, 部分来自 O2 项目的同事可能称其为“值集”, 用于将存在后端的英文数据转换成人类阅读的文本(如后端存"NEW"、"SUBMITTED"前端展示“新建”“已提交”), 在 PC 端的“值列表”页面配置, 使用时需要用到 link-lov 或其他名称类似的组件, 组件会根据传入的 lov-type 自动请求后端接口, 获取“值-展示值”的配置
+值列表: **(重要概念)**也称 lov, 部分来自 O2 项目的同事可能称其为“值集”, 用于将存在后端的英文数据转换成人类阅读的文本(如后端存"NEW"、"SUBMITTED"前端展示“新建”“已提交”), 在 PC 端的“值列表”页面配置, 使用时需要用到 link-lov 或其他名称类似的组件, 组件会根据传入的 lov-type 自动请求后端接口, 获取“值-展示值”的配置
 
-Picklist: (重要概念)也称 object 选择, 部分来自 O2 项目的同事可能称其为“值集视图”, 打开弹框, 里面是一个列表, 用户勾选数据并点击确定, 有单选和多选两种模式, 使用起来比较复杂, 建议使用时参考已有代码处理
+Picklist: **(重要概念)**也称 object 选择, 部分来自 O2 项目的同事可能称其为“值集视图”, 打开弹框, 里面是一个列表, 用户勾选数据并点击确定, 有单选和多选两种模式, 使用起来比较复杂, 建议使用时参考已有代码处理
 
 MVG: (不常用的组件)穿梭框组件, 点开弹框, 分为左右两个列表, 点确定时会保存在 MVG 专用表里; 此组件使用非常麻烦, 需要配置左右两个框的 option, 建议使用时参考已有代码处理
 
@@ -40,22 +40,33 @@ MVG: (不常用的组件)穿梭框组件, 点开弹框, 分为左右两个列表
 
 - 按钮 link-button, 文档见 references/link-button.md
 - 对话框 link-dialog, 文档见 references/link-dialog.md
-- 表单 link-form-panel, 文档见 references/link-form.md
-  - 表单相关组件 link-form-item、link-form-grid、link-panelfolder 等
+- **(重要组件)**表单 link-form-panel, 文档见 references/link-form.md
+  - 编写详情页面时, 也可参考此文档
+  - 表单相关组件 link-form-item、link-form-grid、link-panelfolder 等, 也参考此文档
   - 一些旧组件 link-form、lnk-form-panel 可能还在部分页面使用, 也可参考此文档
+  - 校验相关参考 references/link-form-validate.md 文档
 - 图标 link-icon, 文档见 references/link-icon.md
-- 值集相关组件 link-lov, 文档见 references/link-lov.md
+- **(重要组件)**值集相关组件, 文档见 references/link-lov.md
   - 常见组件名 link-table-column-lov、link-radio-lov、link-lov-select、link-lov-text
-- 列表 link-auto-table, 文档见 references/link-table.md
+- 图片轮播 link-slider, 文档见 references/link-slider.md
+- **(重要组件)**列表 link-auto-table, 文档见 references/link-table.md
+  - 编写列表页面时, 也可参考此文档
+  - 列表相关组件 link-table-column-*, 文档见 references/link-table-column.md
+  - 校验相关参考 references/link-form-validate.md 文档
 
 ### 服务
 
 - 对话框服务 $dialog, 文档见 references/link-dialog.md
 - 气泡提示服务 $msg, 文档见 references/link-msg.md
+- 图片预览 $slider, 文档见 references/link-slider.md
 
 ### 特殊写法示例
 
+待补充
+
 ### 常见问题
+
+待补充
 
 ## 公共对象
 
