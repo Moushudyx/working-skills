@@ -39,8 +39,19 @@
                 <link-lov-select lov-type="ACCT_LEVEL" parent-lov-type="ACCT_TYPE" :parent-lov-value="formOption.data.acctType" v-model="formOption.data.acctLevel"/>
             </link-form-item>
         </lnk-panelfolder>
-        <lnk-panelfolder title="另一个表单">
-            <!-- ... -->
+        <!-- 如果 lnk-panelfolder 下的表单元素数量占不满一行, 则需要加上 width:100% -->
+        <lnk-panelfolder title="另一个表单" style="width: 100%;">
+            <link-form-item label="有效时间" prop="endTime" :required="formOption.data.acctLevel === 'VIP'">
+                <link-datepicker
+                    range
+                    placeholder="开始日期 ~ 结束日期"
+                    :start.sync="formOption.data.startTime"
+                    :end.sync="formOption.data.endTime"
+                />
+            </link-form-item>
+            <link-form-item label="备注" prop="comments" required>
+                <link-textarea v-model="formOption.data.comments" />
+            </link-form-item>
         </lnk-panelfolder>
     </link-form-grid>
 </link-form-panel>
