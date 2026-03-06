@@ -6,7 +6,11 @@
 
 ```vue
 <template>
-<link-auto-table :option="chargersOption">
+<link-auto-table :option="tableOption">
+    <template slot="button">
+        <!-- 列表的按钮信息, 也可以写在 tableOption 的 buttons 参数里 -->
+        <link-button @click="handleSubmit">提交</link-button>
+    </template>
     <!-- title 表示列标题，field 表示字段名(取值) -->
     <link-table-column-input title="线索ID" field="id"/>
     <!-- formFilter 表示展示在表格顶部的查询表单里 -->
@@ -43,7 +47,7 @@
 export default {
     data(){
         return {
-            chargersOption: new AutoOption({
+            tableOption: new AutoOption({
                 context: this, // 没有特殊情况请保持这一行不变
                 module: 'link/clue', // 模块名称，根据这个名称来请求对应的接口
                 beforeCancel(status) {
@@ -51,7 +55,7 @@ export default {
                 },
             }),
             // 这个 option 用于 picklist，也就是弹框选择，所以配置了 render 方法来定义弹框内的表格列
-            orgOption:new AutoOption({
+            orgOption: new AutoOption({
                 context:this, // 没有特殊情况请保持这一行不变
                 queryByExamplePage: 'link/organization/picklist', // 查询接口，如果配置了 module 的话，可以不配置这个参数，默认是 `${module}/queryByExamplePage` 如有不同则用这个参数覆盖
                 // 弹框内的表格列定义
@@ -78,7 +82,7 @@ export default {
         logData(row,rowIndex){
             console.log({
                 row:{...row},rowIndex,
-                selectRow:{...this.chargersOption.selectRow}
+                selectRow:{...this.tableOption.selectRow}
             })
         },
     },

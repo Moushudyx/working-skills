@@ -61,9 +61,14 @@ MVG: (不常用的组件)穿梭框组件, 点开弹框, 分为左右两个列表
 - 气泡提示服务 $msg, 文档见 references/link-msg.md
 - 图片预览 $slider, 文档见 references/link-slider.md
 
-### 特殊写法示例
+### 示例
 
-待补充
+- 单列表页、列表-详情结构、父子表等结构, 文档见 references/page-list.md
+- 详情页(表单页)、列表-详情结构、详情页 tab 等结构, 文档见 references/page-detail.md
+
+常用 mixin
+
+- globalPublicMixin, 文档见 references/globalPublicMixin.md, 包含一些方法如 publicHandler returnBack operateTip initFormOption 等
 
 ### 常见问题
 
