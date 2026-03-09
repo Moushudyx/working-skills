@@ -334,3 +334,7 @@ tableOption.getTable().lv_create({/* 新建行的字段 */});
 // 可以用 tableOption.selectIndex 获取当前选中行的下标
 tableOption.getTable().lv_update(6/* 需要编辑的行的下标 */);
 ```
+
+## 常见问题
+
+一些常见需求、疑难问题总结在了 references/link-table-QA.md 中，如果用户提到复杂功能实现/疑难问题, 建议先看看那里有没有, 没有的话提示用户可以找经验丰富的同事寻求帮助

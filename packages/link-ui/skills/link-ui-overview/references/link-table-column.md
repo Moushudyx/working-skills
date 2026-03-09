@@ -73,7 +73,7 @@
 
 | dataType | String | --- | --- | 数据格式化方式:tel,cny,money,percent |
 | tooltip | Boolean | --- | --- | 列在非编辑状态下是否需要tooltip提示 |
-| link | Boolean | --- | --- | 是否以超链接的形式展示文本，并且点击的时候回派发事件 |
+| link | Boolean | --- | --- | 是否以超链接的形式展示文本，并且点击的时候会触发事件 |
 | clickWhenInEditable | Boolean | --- | --- | 只有非编辑状态下才能出发点击事件，否则任何状态都会触发点击事件 |
 | showInDialog | Boolean | --- | --- | 非编辑状态下，点击打开弹框显示列内容 |
 | tip | String | --- | --- | 显示一个提示图标，tooltip显示提示信息 |
