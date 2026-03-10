@@ -127,8 +127,121 @@ beforeSelect({ row, option }) {
 }
 ```
 
+### 示例: 先选公司再选客户
+
+```html
+<link-form v-model="formData" ref="form">
+    <link-form-item prop="comName" required label="所属公司">
+        <!-- 由于后续的 custOption 依赖公司ID 所以这里的 map 中必须映射一个公司 id 信息 -->
+        <link-object-input
+            :row="formData"
+            :option="companyOption"
+            showKey="comName"
+            :map="{
+                    companyId: 'id',
+                    companyCode: 'comCode',
+                    comName: 'comName',
+                }"
+        />
+    </link-form-item>
+    <link-form-item prop="acctCode" label="客户编码">
+        <link-input v-model="formData.acctCode" disabled/>
+    </link-form-item>
+    <link-form-item prop="acctName" required label="客户名称">
+        <link-object-input
+            :row="formData"
+            :option="custOption"
+            showKey="acctName"
+            :map="{
+                    acctId: 'id',
+                    acctCode: 'acctCode',
+                    acctName: 'acctName',
+                }"
+            :disabled="!formData.companyId"
+        />
+    </link-form-item>
+</link-form>
+```
+```js
+export default {
+    data() {
+        const companyOption = new AutoOption({
+            context: this,
+            queryByExamplePage: 'link/orgnization/picklist',
+            showNum: 5,
+            updateable: false,
+            insertButton: false,
+            deleteButton: false,
+        param: {
+            oauth: 'MY_ORG', // 根据实际需求来
+            filtersRaw: [
+                {property: 'orgType', operator: '=', value: 'BranchCompany'},
+                {property: 'isEffective', operator: '=', value: 'Y'}
+            ]
+        },
+            render(h) {
+                return (
+                    <div>
+                        <link-table-column title="公司编码" field="orgCode" />
+                        <link-table-column title="公司名称" field="text" auto-fill="LONG_TEXT" />
+                        <link-table-column-lov lov-type="ORG_TYPE" title="组织类型" field="orgType" />
+                        <link-table-column-lov lov-type="IS_EFFECTIVE" title="是否有效" field="isEffective" />
+                    </div>
+                );
+            }
+        });
+        const baseFiltersRaw = [
+            {property: 'acctType', value: 'Dealer', operator: '='},
+            {property: 'acctStatus', operator: '=', value: 'Y'}
+        ];
+        const custOption = new AutoOption({
+            context: this,
+            module: 'link/accnt',
+            queryByExamplePage: '/action/link/accnt/queryExcludeSelectedAccountPage',
+            showNum: 5,
+            updateable: false,
+            insertButton: false,
+            deleteButton: false,
+            param: {
+                oauth: 'ALL', // 根据实际需求来
+                filtersRaw: baseFiltersRaw
+            },
+            beforeLoad: ({param}) => {
+                const companyId = this.formData.companyId;
+                // param.filtersRaw 中可能包含用户手动添加的查询条件因此不能直接覆盖
+                param.filtersRaw = [...(param.filtersRaw || baseFiltersRaw), {property: 'companyId', operator: '=', value: companyId || ''}];
+            },
+            render(h) {
+                return (
+                    <div>
+                        <link-table-column field="acctCode" title="客户编码" />
+                        <link-table-column field="acctName" title="客户名称" tooltip={true} />
+                        <link-table-column-lov field="acctType" title="客户类型" lovType="ACCT_TYPE" />
+                        <link-table-column-lov field="acctStatus" title="状态" lovType="ACCT_STATUS" />
+                    </div>
+                );
+            }
+        });
+        return {
+            companyOption,
+            custOption,
+            formData: {}
+        };
+    },
+    watch: {
+        // 当公司发生变化时, 清空客户信息, 避免数据不一致
+        'formData.companyId'(val, oldVal) {
+            this.$set(this.formData, 'acctName', '');
+            this.$set(this.formData, 'acctCode', '');
+            this.$set(this.formData, 'acctId', '');
+        }
+    }
+};
+```
+
 ## 注意事项
 
-- `map` 决定回写行为，建议始终显式配置。
-- 需要阻止打开/确认/取消时，统一使用 `Promise.reject`。
-- `option` 里的 `render` 是必备能力，推荐在业务工程中用 JSX 提高可读性。
+- `map` 决定回写行为，建议始终显式配置
+- 需要阻止打开/确认/取消时，统一使用 `Promise.reject`
+- `option` 里的 `render` 是必备能力，推荐在业务工程中用 JSX 提高可读性
+- 由于 option 编写起来很麻烦, 实际工作中推荐用户将常用的 option 收集起来放在一个单独的文件里, 以便复用
