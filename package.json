@@ -12,8 +12,12 @@
     "bootstrap": "pnpm install"
   },
   "keywords": [],
-  "author": "",
+  "author": "moushu",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Moushudyx/working-skills.git"
+  },
   "devDependencies": {
     "skilio": "^0.0.1"
   }

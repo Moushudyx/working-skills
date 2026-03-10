@@ -3,9 +3,13 @@
 
 编写此页面时建议参考 references/link-form.md 中的表单相关内容
 
-其对应的详情页建议参考 references/page-list.md
+其对应的列表页建议参考 references/page-list.md
 
 如下的例子中, link-auto-table 是放在 lnk-panelfolder 中的, 有时候会放在 link-tabs 中
+
+实际编写页面时建议去掉不必要的注释, 仅保留页面顶部注释、关键属性注释、方法/计算值注释等必要注释, 以免造成视觉干扰; 当然修改页面时不要删除用户的注释
+
+对于后端没有给出接口/字段信息等场景, 可以先搭建一个壳子, 然后用 TODO 注释标明需要补充接口/字段信息的位置, 以便后续补充
 
 ```vue
 <!--
@@ -39,6 +43,7 @@
                 <link-button @click="formOption.save">保存</link-button>
             </template>
             <link-form-grid :column="column">
+                <!-- link-form-grid 下可以放置多个 lnk-panelfolder, 其下的 link-form-item 都能正常链接到 formOption -->
                 <lnk-panelfolder title="基本信息">
                     <link-form-item label="公司编码" prop="companyCode">
                         <link-input v-model="formOption.data.companyCode" />
@@ -64,6 +69,8 @@
                 </lnk-panelfolder>
             </link-form-grid>
         </link-form-panel>
+        <!-- 这个例子中“产品返利率”是放在一个可以收起的面板中 -->
+        <!-- 有的页面需要放在一个 tabs 中切换展示, 需要按后文的说明处理 -->
         <lnk-panelfolder title="产品返利率">
             <link-auto-table :option="rebateRateLineOption">
                 <link-table-column-input title="产品编码" field="prodCode" auto-fill="TEXT" required />

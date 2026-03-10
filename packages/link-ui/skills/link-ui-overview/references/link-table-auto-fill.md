@@ -8,7 +8,7 @@
 
 **建议表格的每一列都使用auto-fill属性**
 
-特殊场景: 部分客户可能希望**数字列靠左展示**, 此时由于 autoFill 覆盖了 align, 所以需要去掉 autoFill 手动设置 `:width="120" align="left"`
+特殊场景: 部分客户可能希望**数字列靠左展示**, 此时由于 autoFill 覆盖了 align, 不能单独设置文字对齐, 所以需要去掉 autoFill 手动设置 `:width="120" align="left"` 或者设置为其他合适的规则
 
 ## autoFill、width、fit属性优先级
 

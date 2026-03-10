@@ -12,9 +12,9 @@ metadata:
 - src/modules/crm - CRM 系统相关代码
 - src/modules/dms - DMS 系统相关代码
 
-页面代码文件路径按照 src/modules/{crm|dms}/{模块名称}/{页面名称}/{页面名称}-{list|detail}.vue 组织
+页面代码文件路径按照 src/modules/{crm|dms}/{模块名称}/{页面名称}/{页面名称}-{list|detail}.vue 组织(菜单需要到线上环境配置, 配置菜单的操作一般由用户完成, 如果用户不会配置或者出问题了, 参考 references/nav.md 文档指导用户)
 
-- 比如 src/modules/crm/rebate_manage/rebate_product/rebate-product-list.vue 表示 CRM 系统的返利管理模块下的返利商品页面的列表页
+- 比如 src/modules/crm/rebate_manage/rebate_product/rebate-product-list.vue 表示 CRM 系统的返利管理(rebate_manage)模块下的返利商品(rebate_product)页面的列表页(rebate-product-list)
 
 系统中可能存在不按此规范命名的页面文件，请根据实际情况处理
 
@@ -85,7 +85,7 @@ MVG: (不常用的组件)穿梭框组件, 点开弹框, 分为左右两个列表
 
 - globalPublicMixin, 文档见 references/globalPublicMixin.md, 包含一些方法如 publicHandler returnBack operateTip initFormOption 等
 
-### 常见问题
+### 常见功能
 
 - 页面导航与菜单配置, 文档见 references/nav.md
 
