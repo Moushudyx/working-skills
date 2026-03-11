@@ -5,6 +5,8 @@
 
 其对应的列表页建议参考 references/page-list.md
 
+关于 link-auto-table 和 AutoOption 的用法建议参考 references/link-table.md
+
 如下的例子中, link-auto-table 是放在 lnk-panelfolder 中的, 有时候会放在 link-tabs 中
 
 实际编写页面时建议去掉不必要的注释, 仅保留页面顶部注释、关键属性注释、方法/计算值注释等必要注释, 以免造成视觉干扰; 当然修改页面时不要删除用户的注释
@@ -27,13 +29,16 @@
             右上角按钮-编辑模式<template slot="header-right-editing"></template>
         改变列数<link-form-grid :column="列数"></link-form-grid>
     -->
-    <div class="main-content rebate-rate-detail">
+    <div class="main-content <页面编码>-detail">
         <link-form-panel :option="formOption">
             <template slot="header-right-readonly">
                 <!-- 这里放只读状态下右上角的出现的按钮 -->
+                <!-- 标准功能中, 一般只会用到编辑功能, 新建/复制功能一般不会给用户手动调用 -->
+                <link-button @click="formOption.doUpdate">编辑</link-button>
                 <!-- <link-button @click="formOption.doInsert">新建</link-button> -->
                 <!-- <link-button @click="formOption.doCopy">复制</link-button> -->
-                <!-- <link-button @click="formOption.doUpdate">编辑</link-button> -->
+                <!-- 按钮顺序需按照文档调整, 越靠前的按钮在页面上越靠左 -->
+                <link-button v-if="formOption.data && formOption.data.status === 'New'" @click="handleSubmit">提交</link-button>
                 <!-- 返回操作建议调用 returnBack 方法 -->
                 <link-button type="line" label="返回" @click="returnBack"/>
             </template>
@@ -72,7 +77,7 @@
         <!-- 这个例子中“产品返利率”是放在一个可以收起的面板中 -->
         <!-- 有的页面需要放在一个 tabs 中切换展示, 需要按后文的说明处理 -->
         <lnk-panelfolder title="产品返利率">
-            <link-auto-table :option="rebateRateLineOption">
+            <link-auto-table :option="XXXLineOption">
                 <link-table-column-input title="产品编码" field="prodCode" auto-fill="TEXT" required />
                 <link-table-column-input title="产品名称" field="prodName" auto-fill="LONG_TEXT" required />
                 <link-table-column-input-number title="产品返利率" field="totalRate" auto-fill="TEXT" required />
@@ -82,29 +87,27 @@
     </div>
 </template>
 <script>
-
 import {globalPublicMixin} from '@/modules/common/js/mixin';
 
 export default {
-    name: 'rebate-rate-detail',
+    name: '<页面编码>-detail',
     mixins: [globalPublicMixin], // 关于这个 mixin 的说明见 references/globalPublicMixin.md
     data() {
         // 若无特殊情况, 建议详情页的 option 命名为 formOption
         const formOption = new LinkFormPanelOption({
-            title: '返利率',
+            title: '<页面名>',
             context: this,
-            id: this.pageParam.id,
-            module: '/dms/link/rebateRate',
+            id: this.pageParam.id, // 一般是从列表页传过来的
+            module: '<模块名>',
             // data: {},
-            dataDefault: {}
-            // elFormProps: {},
+            dataDefault: {}, // 这个参数会在新建/复制时作为默认值使用
         });
         // 由于父表 id 已知, 一般不用设置行表在父表查询完成后再查询
-        const rebateRateLineOption = new AutoOption({
+        const XXXLineOption = new AutoOption({
             // title: '产品返利率',
             context: this,
-            module: '/dms/link/rebateRateItem',
-            queryByExamplePage: '/dms/link/rebateRateItem/queryByExamplePage',
+            module: '<子模块名>',
+            queryByExamplePage: '<子模块名>/queryByExamplePage',
             // 大多数情况下子表都是通过 filtersRaw 中传递 headId 来关联父表的, 详情页的父表 id 一般通过 this.pageParam.id 获取(列表页跳转详情页时传递 id 参数), 见 references/page-list.md 中的相关说明
             // 特殊情况下可能要设置 `param: {filtersRaw:[...], oauth: 'ALL'}`, 其中的 oauth 是安全性配置, 设为 ALL 可以查询出所有数据(所谓的特殊情况一般是指页面设置了限定组织之类的安全性, 但是希望行信息能查出所有数据的场景)
             param: {filtersRaw: [{id: 'headId', property: 'headId', value: this.pageParam.id}]},
@@ -119,9 +122,26 @@ export default {
             copyable: false,
             fill: false
         });
-        return {formOption, column: 3, rebateRateLineOption};
+        return {formOption, column: 3, XXXLineOption};
     },
-    methods: {},
+    methods: {
+        /**
+         * 提交
+         */
+        async handleSubmit() {
+            // 这里可以做一些数据校验之类的工作, 代码略
+
+            // operateTip 用于操作前提示, 这个函数会返回一个 Promise, 在用户确认提示时 resolve, 在用户取消提示时 reject, 详见 references/globalPublicMixin.md 文档
+            await this.operateTip({tip: '提交'});
+
+            // publicHandler 封装了 this.$http.post 调用, 方便调用时的提示和一些参数的处理, 成功时会自动提示(可以关闭)并 resolve, 失败是会自动提示并 reject, 详见 references/globalPublicMixin.md 文档
+            const res = await this.publicHandler('<模块名>/submit', rows, '提交');
+            // 这里可以处理返回的 res
+
+            // 后续操作, 比如说刷新当前页
+            this.formOption.reload();
+        }
+    },
     mounted() {
         this.initFormOption(); // 这个方法来自 globalPublicMixin
     }
@@ -129,7 +149,7 @@ export default {
 </script>
 <style lang="scss">
 // @import '../../../../styles/index.scss';
-.rebate-rate-detail {
+.<页面编码>-detail {
 }
 </style>
 ```
