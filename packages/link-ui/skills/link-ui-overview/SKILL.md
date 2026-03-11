@@ -57,6 +57,7 @@ MVG: (不常用的组件)穿梭框组件, 点开弹框, 分为左右两个列表
 - 下拉选择 link-select, 文档见 references/link-select.md
 - 日期选择 link-datepicker, 文档见 references/link-datepicker.md
 - 时间选择 link-timepicker, 文档见 references/link-timepicker.md
+- 步骤条 link-steps, 文档见 references/link-steps.md
 - 树组件 link-tree-pro, 文档见 references/link-tree-pro.md
 - 地址选择 link-address-input/link-table-column-address, 文档见 references/link-address.md
 - 对象选择（picklist）link-object-input/link-table-column-object, 文档见 references/link-object.md
