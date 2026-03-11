@@ -35,12 +35,12 @@
     <link-table-column-input-number title="价格" field="price" :min="0" data-type="cny" formFilter/>
     <!-- link-table-column-datepicker 展示时间的列组件 -->
     <link-table-column-datepicker title="创建时间" field="created" :editable="false" formFilter/>
-    <!-- link-table-column-operator 是操作列组件，通常放在最后 -->
-    <link-table-column-operator title="操作" fixed="right" align="center" width="1-button" :sort="false">
+    <!-- link-table-column-operate 是操作列组件，通常放在最后 -->
+    <link-table-column-operate title="操作" fixed="right" align="center" width="1-button" :sort="false">
         <template slot-scope="{row,rowIndex}">
             <link-button label="预览" @click="logData(row,rowIndex)"/>
         </template>
-    </link-table-column-operator>
+    </link-table-column-operate>
 </link-auto-table>
 </template>
 <script>
@@ -192,11 +192,11 @@ const tableOption = new AutoOption({
     showNum: 10, // 设置表格高度，显示的行数，超过会展示纵向滚动条, 默认为 10, 一页多个列表时想把列表设置得矮一点可以将这项设为 5
     fill: false, // 是否自动填满父元素, 默认 false, 设为 true 时不用设置 showNum
     bodyRowHeight: 32, // 行高（不加px）, 一般不需要配置
+    singleSelect: false, // 是否单选, 设为 false 会展示复选框, 默认为 true
     selectCache: true, // 表格翻页时是否缓存上一页的选中结果, 默认 false
     sortField: 'created', // 排序字段, 默认以数据创建时间字段进行排序
     sortDesc: true, // 排序方式，先序还是降序，默认为降序
     searchField: 'text', // 默认搜索列字段
-    singleSelect: false, // 是否单选（只适用于对象选择框）
     render: null, // 渲染表格内容的渲染函数
     sizeOption: [5, 10, 20], // 分页查询页大小配置项, 默认 [10,20,50,100]
     fixedRowText: '合计', // 固定行，索引列显示文本，默认为【合计】
@@ -308,8 +308,8 @@ this.tableOption.removeFilter(id) // 移除隐藏筛选条件
 ```js
 this.tableOption.list // 当前页数据数组
 this.tableOption.list = [...] // 手动设置当前页数据数组
-this.tableOption.selectRow // 当前选中的行数据对象
-this.tableOption.selectIndex // 当前选中的行索引
+this.tableOption.selectRow // 当前选中的行数据对象(点击行选中, 不是复选框选中), 注意这个对象是响应式的, 不要直接替换这个对象
+this.tableOption.selectIndex // 当前选中的行索引(点击行选中, 不是复选框选中)
 this.tableOption.tableCreated // 当前列表是否初始化完成
 this.tableOption.loading // 当前列表是否正在加载中
 
@@ -323,16 +323,40 @@ this.tableOption.param = {...} // 手动设置额外的查询参数对象
 调用标准的新建/编辑
 
 ```js
-// lv_create 是 link-table 组件上的方法
+// lv_create 是 link-table 组件上的方法, 会打开一个新建状态的行, 内容为 defaultNewRow 与传入参数的合并结果, 供用户编辑
 // 使用 tableOption.getTable() 可以获取 link-table 组件的 ref
 // 如果给 link-table 设置了 ref 直接使用 $refs.table 也可以
 // 但是这样写更加清晰好懂
 // 传入的对象会与 tableOption 的 defaultNewRow 合并
 tableOption.getTable().lv_create({/* 新建行的字段 */});
 
-// lv_update 是 link-table 组件上的方法
+// lv_copy 是 link-table 组件上的方法, 会打开一个新建状态的行, 内容为当前选中行, 供用户编辑
+tableOption.getTable().lv_copy();
+
+// lv_update 是 link-table 组件上的方法, 将指定行设置为编辑状态, 供用户编辑
 // 可以用 tableOption.selectIndex 获取当前选中行的下标
 tableOption.getTable().lv_update(6/* 需要编辑的行的下标 */);
+```
+
+其他可能用得上的方法
+
+```js
+// 这个 select 功能是在没有设置复选的列表中, 临时开启复选框, 让用户选择一行或多行数据, 选择完成后会调用 onConfirm 回调函数, 并把用户选中的行数据数组作为参数传入
+tableOption.getTable().select({
+    autoCancelSelectStatus: true, // 选择完成后是否自动取消选中状态, 默认为 true
+    onConfirm: (dataRows) => {
+        // dataRows 是选中行的数据数组
+    },
+    onCancel: () => {
+        // 取消选择的回调函数, 可选
+    }
+})
+
+// getSelected 方法可以获取当前选中的行数据数组
+// 没有设置复选的列表中这个方法会获得选中行的数据(不是数组)
+// 设置了复选的列表中(包括用上面的 .getTable().select 方法开启临时选中状态)这个方法会获得所有勾选了复选框的数据数组(不包含选中行)
+// 选中行是用户点击某一行, 此行会设置为高亮(选中); 复选框则是每一列最左侧展示复选框, 供用户勾选; 两种选择模式互相独立, 因此会出现勾选的行不是选中行的情况
+tableOption.getTable().getSelected()
 ```
 
 ## 常见问题
