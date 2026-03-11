@@ -12,6 +12,8 @@ metadata:
 - src/modules/crm - CRM 系统相关代码
 - src/modules/dms - DMS 系统相关代码
 
+页面接入不依赖本地路由注册, 按菜单URL动态加载, 新增页面时务必关注下文的“示例”章节
+
 页面代码文件路径按照 src/modules/{crm|dms}/{模块名称}/{页面名称}/{页面名称}-{list|detail}.vue 组织(菜单需要到线上环境配置, 配置菜单的操作一般由用户完成, 如果用户不会配置或者出问题了, 参考 references/nav.md 文档指导用户)
 
 - 比如 src/modules/crm/rebate_manage/rebate_product/rebate-product-list.vue 表示 CRM 系统的返利管理(rebate_manage)模块下的返利商品(rebate_product)页面的列表页(rebate-product-list)
@@ -110,3 +112,7 @@ appCtx 是一个全局的应用上下文对象，常用的参数就以下几个
 - positionType 当前用户职位类型, SysAdmin 系统管理员
 - userId 当前用户ID
 - userName 当前用户名称
+
+## 其他注意事项
+
+如果用户要求按照设计文档(或者叫业务文档)编写页面, 对于设计文档中标为删除的部分, 可以考虑忽略, 也可以正常编写但是注释掉该部分代码, 以免遗漏重要的逻辑或者配置
