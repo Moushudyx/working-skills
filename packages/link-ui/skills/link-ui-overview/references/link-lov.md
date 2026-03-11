@@ -75,3 +75,28 @@ link-table-column-lov, 在表格中使用的值列表渲染组件, 可以用 lov
       </link-auto-table>
 </template>
 ```
+
+## $lov 获取 lov 数据的服务
+
+```ts
+// 值列表数据类型如下
+type LovType = {
+    id: string, // ID
+    name: string, // 展示值
+    parentId: string, // 父级值列表 id, 没有父级值列表则为 '0' 也可能为空
+    seq: string, // 用于排序
+    type: string, // lov 类型编码
+    val: string // 独立源代码
+};
+// 根据值列表类型获取值列表信息
+this.$lov.getLovByType('LOV类型编码').then((res: LovType[]) => {});
+// 同时获取多个值列表
+this.$lov.getLovTypes(['LOV类型编码1', 'LOV类型编码2']).then((res: Record<'LOV类型编码1' | 'LOV类型编码2', LovType[]>) => {});
+// 根据值列表的类型以及独立源代码获取值列表的名称
+this.$lov.getNameByTypeAndVal('LOV类型编码', '独立源代码').then((res: string) => {});
+// 根据父值列表的类型和独立源代码获取子值列表
+this.$lov.getLovByParentTypeAndValue('LOV类型编码', '父值列表类型', '父值列表独立源代码').then((res: LovType[]) => {});
+// 获取值列表数据, 并计算出默认值(不一定存在默认值), 其中“LOV类型编码”以外的参数均为可选参数
+// 一般用不到这个, 而是使用 getLovByType 或 getLovByParentTypeAndValue
+this.$lov.getLovData('LOV类型编码', '父值列表类型', '父值列表独立源代码', ['排除的独立源代码'], 是否多选).then(({defaultVal, lovs}: {defaultVal: null | LovType, lovs: LovType[]}) => {});
+```

@@ -230,7 +230,8 @@ const tableOption = new AutoOption({
     deleteButton: false, // 是否展示标准删除按钮 默认为 true
     buttons: [
         {
-            type: 'other', // 没有特殊情况的话用 other
+            order: 1, // 按钮顺序，数字越大越靠左, 默认值按 type, insert:100, update: 50, delete: 10, other: 1
+            type: 'other', // insert, update, delete, other, 没有特殊情况的话用 other
             label: '提交', // 按钮展示的文本
             handler() { /* 按钮点击后的功能 */ },
             disabled() { /* 返回 true 会让按钮隐藏 */ },
@@ -248,14 +249,16 @@ const tableOption = new AutoOption({
         {
             type: 'update', // 会受到 updateable 控制
             label: '编辑',
-            handler() {
+            needRow: true, // 必须选中行才能点击
+            handler(row) { // row 为选中的行
                 // 自定义编辑功能
             }
         },
         {
             type: 'delete', // 会受到 deleteable 控制
             label: '删除',
-            handler() {
+            inner: true, // 行上的按钮, 每行都有, 会渲染在“操作”列上
+            handler(row) { // row 为当前行
                 // 自定义删除功能
             }
         }

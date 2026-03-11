@@ -77,6 +77,7 @@ MVG: (不常用的组件)穿梭框组件, 点开弹框, 分为左右两个列表
 - 图片预览 $slider, 文档见 references/link-slider.md
 - 对象选择服务 $object, 文档见 references/link-object.md
 - 多对多选择服务 $mvg, 文档见 references/link-mvg.md
+- 值列表服务 $lov, 文档见 references/link-lov.md
 - 地址选择服务 $lv.$address, 文档见 references/link-address.md
 
 ### 示例
