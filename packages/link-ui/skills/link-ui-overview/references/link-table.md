@@ -7,9 +7,14 @@
 ```vue
 <template>
 <link-auto-table :option="tableOption">
-    <template slot="button">
-        <!-- 列表的按钮信息, 也可以写在 tableOption 的 buttons 参数里 -->
+    <!-- 列表的按钮信息, 也可以写在 tableOption 的 buttons 参数里 -->
+    <template slot="leftButton">
+        <!-- 这个插槽里的按钮渲染在 tableOption.buttons 对应按钮的左侧 -->
         <link-button @click="handleSubmit">提交</link-button>
+    </template>
+    <template slot="button">
+        <!-- 这个插槽里的按钮渲染在 tableOption.buttons 对应按钮的右侧 -->
+        <link-button @click="handleApproval">审批</link-button>
     </template>
     <!-- title 表示列标题，field 表示字段名(取值) -->
     <link-table-column-input title="线索ID" field="id"/>
@@ -365,3 +370,9 @@ tableOption.getTable().getSelected()
 ## 常见问题
 
 一些常见需求、疑难问题总结在了 references/link-table-QA.md 中，如果用户提到复杂功能实现/疑难问题, 建议先看看那里有没有, 没有的话提示用户可以找经验丰富的同事寻求帮助
+
+### 列表中的按钮没有触发 loading 状态
+
+写在 AutoOption 的 buttons 属性中的按钮, 由于 link-auto-table 没有处理 handler 的异步情况, 因此即使其 handler 是异步函数, 也不会触发按钮的 loading 状态; 解决方法是将按钮写在 link-auto-table 的 leftButton 或 button 插槽中(修改时需要注意按钮顺序)
+
+如果按钮已经写在插槽中, 可以参考 references/link-button.md 中关于按钮 loading 状态的说明, 确保按钮的 click 事件处理函数返回了一个 Promise 对象
