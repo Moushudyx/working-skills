@@ -5,6 +5,7 @@
   "main": "index.js",
   "files": [
     "skills",
+    "skilio.md",
     "index.js"
   ],
   "publishConfig": {

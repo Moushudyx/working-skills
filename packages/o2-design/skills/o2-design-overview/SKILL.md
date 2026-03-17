@@ -1,6 +1,6 @@
 ---
 name: o2-design-overview
-description: 关于 O2 Design 组件库的整体叙述
+description: 使用 o2-design 组件库时必读
 ---
 
 O2Design 基于 choerodon-ui 二次开发而来, 是一个 React 组件库
