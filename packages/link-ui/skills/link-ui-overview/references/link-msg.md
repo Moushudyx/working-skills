@@ -9,8 +9,9 @@ this.$msg.show('消息',{type:类型,duration:持续时间})
 this.$msg.success('成功消息',{duration:持续时间})
 this.$msg.error('错误消息',{duration:持续时间})
 this.$msg.warning('警告消息',{duration:持续时间})
-this.$msg.info('信息消息',{duration:持续时间})
 ```
+
+注意 `$msg.info` 方法并不存在, 只会导致报错, 可以直接使用 `$msg.show` 方法(type 默认为 info)
 
 ## 参数
 
