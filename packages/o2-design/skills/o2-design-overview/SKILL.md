@@ -80,19 +80,79 @@ const Page = designPage(() => {
 
 如上面示例所示, 由于 o2-design 的响应式功能可以自动追踪依赖, 所以不再需要复杂的状态管理功能, 组件内部直接使用 reactive 定义状态即可, 组件之间共享状态可以通过导出 reactive 对象的方式实现, 组件会自动追踪这些状态的变化并更新视图, 这也是 o2-design 组件开发的核心体验之一
 
+### v-model
+
+这个并不是组件库的实现，而是组件库会附带一个 Babel 插件来实现 v-model 的语法糖, 组件开发者需要在组件中正确使用 modelValue 和 onUpdateModelValue 来支持 v-model 的双向绑定
+
+```tsx
+// 使用时 <MyInput v-model={state.value} />
+const MyInput = designComponent({
+  props: {
+    modelValue: String,
+  },
+  emits: {
+    onUpdateModelValue: (value: string) => true,
+  },
+  setup({ props, event: { emit } }) {
+    return () => (
+      <input value={props.modelValue} onChange={(e) => emit.onUpdateModelValue(e.target.value)} />
+    );
+  },
+});
+// designPage 写法
+const MyInput2 = designPage((props) => {
+  return () => <input value={props.modelValue} onChange={(e) => props.onUpdateModelValue(e.target.value)} />;
+});
+// useModel 写法，兼容 designComponent 和 designPage
+const MyInput = designComponent({
+  props: {
+    modelValue: String,
+  },
+  emits: {
+    onUpdateModelValue: (value: string) => any,
+  },
+  setup({ props, event: { emit } }) {
+    const model = useModel(() => props.modelValue, emit.onUpdateModelValue);
+    return () => (
+      <input value={model.value} onChange={(e) => model.value = e.target.value} />
+    );
+  },
+});
+```
+
+也可以用这个语法糖绑定其他值
+
+```tsx
+// 使用时 <MyUpload v-model-rel={state.relPath} v-model-abs={state.absPath} />
+const MyUpload = designComponent({
+  props: {
+    rel: { type: String }, // 图片相对路径
+    abs: { type: String }, // 图片绝对路径
+  },
+  emits: {
+    onUpdateRel: (val?: string | any[]) => any,
+    onUpdateAbs: (val?: string | any[]) => any,
+  },
+  setup({ props, event: { emit } }) {
+    return () => '具体功能略';
+  },
+});
+// designPage 同理, 也可以用 useModel 来简化
+```
+
 ### lov 值集
 
 也称值列表, 用于将存在后端的英文数据转换成人类阅读的文本(如后端存"NEW"、"SUBMITTED"前端展示“新建”“已提交”, 其中后端存的部分叫“值”或者“编码”, 展示的值叫“含义”或“名称”, lov 的编码叫“lov 编码”或者“值集编码”或其他什么名称), 在 PC 端的“值集配置”页面配置, 使用时需要用到 O2Lov 组件或其变体, 组件会根据传入的 lovCode 自动请求后端接口, 获取“值-含义”的配置
 
-## lovView 值集视图
+### lovView 值集视图
 
 类似 picklist, 打开一个弹框里面是一个列表, 用户可以选择其中的数据(实际工程中往往会配置一个“值字段”和“显示字段”), 与值集类似可以在 PC 端“值集视图配置”页面配置, 可以配置值集视图查询的接口、弹框标题、有哪些列等, 使用时需要用到 O2LovView 组件或其变体, 组件会根据传入的 lovCode 自动请求后端接口, 获取弹框中的列表配置, 并在用户点击后打开弹框
 
-## Object/Picklist
+### Object/Picklist
 
 类似值集视图, 但是这里的弹框中的列表不是事先配置好的, 而是前端手动配置的, 使用时需要用到 O2Object 组件或其变体, 组件使用前端传入的列表配置, 适用于一些特殊的选择场景, 若无特殊需求建议优先使用 lovView 来实现选择功能
 
-## 列表页、详情页、头行结构
+### 列表页、详情页、头行结构
 
 最常见的页面结构是头行结构:
 ```
@@ -116,6 +176,23 @@ Detail/
 
 - 按钮 `o2-button.md`
 - 输入框 `o2-input.md`
+- 数字输入 `o2-input-number.md`
+- 货币输入 `o2-currency.md`
+- 下拉选择 `o2-select.md`
+- 值集下拉 `o2-lov.md`
+- 值集视图 `o2-lov-view.md`
+- 对象选择 `o2-object.md`
+- 开关 `o2-switch.md`
+- 日期选择 `o2-datepicker.md`
+- 单选框 `o2-radio.md`
+- 复选框 `o2-checkbox.md`
+- 地址选择 `o2-address.md`
+- 文本域 `o2-textarea.md`
+- 弹框文本域 `o2-textarea-input.md`
+- 多语言输入 `o2-intl-field.md`
+- Json 编辑器 `o2-json-editor.md`
+- 富文本编辑器 `o2-rich-editor.md`（包含多语言富文本衍生能力说明）
+- 文件上传 `o2-upload.md`（包含图片上传衍生能力说明）
 - 表格 `o2-table.md`
   - 表格 option(整合了表格的各种操作) `o2-table-option.md`
 - 表格列 `o2-column.md`

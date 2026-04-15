@@ -54,3 +54,10 @@
 - 所有 useXxx/onMounted/onUpdated 统一放在 setup 顶层
 - 不在 render 分支或普通工具函数中直接调用生命周期 API
 
+## 6. 所有使用 v-model 绑定的值不生效
+
+原因: 组件没有正确实现 v-model 相关的 props 和事件, 也可能是 babel 插件失效
+
+规避:
+- 检查组件是否正确使用 modelValue 和 onUpdateModelValue(或其他写法) 来支持 v-model
+- 检查项目是否正确配置了支持 v-model 的 babel 插件
