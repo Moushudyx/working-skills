@@ -1,0 +1,25 @@
+{
+  "name": "@moushu/link-mp",
+  "version": "0.0.1-snapshot.1",
+  "description": "Link Mini-program skills package",
+  "main": "index.js",
+  "files": [
+    "skills",
+    "skilio.md",
+    "index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["skill","moushu","link-mp"],
+  "author": "moushu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Moushudyx/working-skills/issues"
+  },
+  "homepage": "https://github.com/Moushudyx/working-skills#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Moushudyx/working-skills.git"
+  }
+}
