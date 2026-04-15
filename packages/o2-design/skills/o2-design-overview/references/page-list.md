@@ -141,13 +141,13 @@ const Page = designKeepAlivePage(({ history }) => {
       history.push(`/o2rm/course/detail/${record.courseId}`);
     },
     /** 发布 */
-    handlePublish() { /* TODO */ },
+    handlePublish() {},
     /** 撤销 */
-    handleRevoke() { /* TODO */ },
+    handleRevoke() {},
     /** 结束 */
-    handleEnd() { /* TODO */ },
+    handleEnd() {},
     /** 导出 */
-    handleExport() { /* TODO */ },
+    handleExport() {},
   };
 
   // // 监听页面跳转, 刷新列表页

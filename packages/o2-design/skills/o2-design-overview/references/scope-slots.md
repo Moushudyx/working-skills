@@ -57,7 +57,7 @@ export const MyList = designComponent({
 
 这就是列组件支持 `normal/edit/form/filter/head` 等作用域插槽的入口。
 
-更完整示例见 `o2-column-scope-slots.md`。
+更完整示例见 `./column/o2-column-scope-slots.md`。
 
 ## 常见问题
 

@@ -84,5 +84,9 @@ export default designPage(() => {
 
 ## 版本支持
 
+- `handleUploadResponse` 在 `1.6.32` 增加（自定义上传响应解析）。
+- `showUploadList` 合并策略在 `1.6.32` 优化（与默认配置合并而非覆盖）。
+- `tenantId` 在 `1.6.34` 增加（多租户文件前缀场景）。
+- `fileUrlPrefix` 在 `1.6.35` 增加（可跳过默认前缀查询）。
 - `accept` 支持标准 `input[accept]` 写法在 `1.8.8` 增强。
 - 超过大小等默认提示在 `1.6.68` 修复。

@@ -137,7 +137,7 @@ const MyCard = designComponent({
 
 scope-slots 是“子组件在渲染插槽时给父组件传参数”的机制。
 
-更多模式（表格列 `normal/edit/form/filter`、回退顺序）见 `references/scope-slots.md` 与 `references/o2-column-scope-slots.md`。
+更多模式（表格列 `normal/edit/form/filter`、回退顺序）见 `references/scope-slots.md` 与 `references/column/o2-column-scope-slots.md`。
 
 ```tsx
 const MyList = designComponent({
@@ -206,9 +206,10 @@ Detail/
 - 文件上传 `o2-upload.md`（包含图片上传衍生能力说明）
 - 表格 `o2-table.md`
   - 表格 option(整合了表格的各种操作) `o2-table-option.md`
-- 表格列 `o2-column.md`
-  - 所有列 `o2-column-family.md`
-  - 列作用域插槽 `o2-column-scope-slots.md`
+- 表格列总览 `o2-column.md`
+  - 列作用域插槽详解 `references/column/o2-column-scope-slots.md`
+  - O2Column 变体文档放在 `references/column/` 目录中（例如 `references/column/o2-column-input.md`）
+  - 变体索引与“常用列/内部列”关系在 `o2-column.md` 中维护
 
 工具与问题
 
