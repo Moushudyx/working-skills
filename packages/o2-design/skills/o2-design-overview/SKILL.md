@@ -82,7 +82,9 @@ const Page = designPage(() => {
 
 ### v-model
 
-这个并不是组件库的实现，而是组件库会附带一个 Babel 插件来实现 v-model 的语法糖, 组件开发者需要在组件中正确使用 modelValue 和 onUpdateModelValue 来支持 v-model 的双向绑定
+v-model 由项目 Babel 插件提供语法糖，组件开发时只需要按约定提供 `props + emits` 即可。
+
+更多实现细节、`useModel`、多字段 v-model 见 `references/v-model.md`。
 
 ```tsx
 // 使用时 <MyInput v-model={state.value} />
@@ -99,54 +101,63 @@ const MyInput = designComponent({
     );
   },
 });
-// designPage 写法
-const MyInput2 = designPage((props) => {
-  return () => <input value={props.modelValue} onChange={(e) => props.onUpdateModelValue(e.target.value)} />;
-});
-// useModel 写法，兼容 designComponent 和 designPage
-const MyInput = designComponent({
-  props: {
-    modelValue: String,
-  },
-  emits: {
-    onUpdateModelValue: (value: string) => any,
-  },
-  setup({ props, event: { emit } }) {
-    const model = useModel(() => props.modelValue, emit.onUpdateModelValue);
+```
+
+编译后可理解为普通的 `prop + update 事件` 绑定:
+
+```tsx
+// 编译前
+<MyInput v-model={state.value} />
+
+// 编译后（等价语义）
+<MyInput modelValue={state.value} onUpdateModelValue={(v) => (state.value = v)} />
+```
+
+### slots 插槽
+
+slots 是“父组件传内容，子组件决定放置位置”的机制。
+
+更多模式（具名插槽、动态插槽、fallback）见 `references/slots.md`。
+
+```tsx
+const MyCard = designComponent({
+  slots: ['default', 'footer'],
+  setup({ slots }) {
     return () => (
-      <input value={model.value} onChange={(e) => model.value = e.target.value} />
+      <div>
+        <div>{slots.default?.()}</div>
+        <div>{slots.footer?.()}</div>
+      </div>
     );
   },
 });
 ```
 
-也可以用这个语法糖绑定其他值
+### scope-slots 作用域插槽
+
+scope-slots 是“子组件在渲染插槽时给父组件传参数”的机制。
+
+更多模式（表格列 `normal/edit/form/filter`、回退顺序）见 `references/scope-slots.md` 与 `references/o2-column-scope-slots.md`。
 
 ```tsx
-// 使用时 <MyUpload v-model-rel={state.relPath} v-model-abs={state.absPath} />
-const MyUpload = designComponent({
-  props: {
-    rel: { type: String }, // 图片相对路径
-    abs: { type: String }, // 图片绝对路径
+const MyList = designComponent({
+  scopeSlots: {
+    item: (scope) => true,
   },
-  emits: {
-    onUpdateRel: (val?: string | any[]) => any,
-    onUpdateAbs: (val?: string | any[]) => any,
-  },
-  setup({ props, event: { emit } }) {
-    return () => '具体功能略';
+  setup({ scopeSlots }) {
+    const rows = [{ id: 1, name: 'A' }];
+    return () => <div>{rows.map((row) => scopeSlots.item?.({ row }))}</div>;
   },
 });
-// designPage 同理, 也可以用 useModel 来简化
 ```
 
 ### lov 值集
 
-也称值列表, 用于将存在后端的英文数据转换成人类阅读的文本(如后端存"NEW"、"SUBMITTED"前端展示“新建”“已提交”, 其中后端存的部分叫“值”或者“编码”, 展示的值叫“含义”或“名称”, lov 的编码叫“lov 编码”或者“值集编码”或其他什么名称), 在 PC 端的“值集配置”页面配置, 使用时需要用到 O2Lov 组件或其变体, 组件会根据传入的 lovCode 自动请求后端接口, 获取“值-含义”的配置
+也称值集、值列表, 用于将存在后端的英文数据转换成人类阅读的文本(如后端存"NEW"、"SUBMITTED"前端展示"新建"、"已提交", 其中后端存的部分叫“值”或者“编码”, 展示的值叫“含义”或“名称”, lov 的编码叫“lov 编码”或者“值集编码”或其他什么名称), 在 PC 端的“值集配置”页面配置, 使用时需要用到 O2Lov 组件或其变体, 组件会根据传入的 lovCode 自动请求后端接口, 获取“值-含义”的配置
 
 ### lovView 值集视图
 
-类似 picklist, 打开一个弹框里面是一个列表, 用户可以选择其中的数据(实际工程中往往会配置一个“值字段”和“显示字段”), 与值集类似可以在 PC 端“值集视图配置”页面配置, 可以配置值集视图查询的接口、弹框标题、有哪些列等, 使用时需要用到 O2LovView 组件或其变体, 组件会根据传入的 lovCode 自动请求后端接口, 获取弹框中的列表配置, 并在用户点击后打开弹框
+类似 Object/Picklist, 打开一个弹框里面是一个列表, 用户可以选择其中的数据(实际工程中往往会配置一个“值字段”和“显示字段”), 与值集类似可以在 PC 端“值集视图配置”页面配置, 可以配置值集视图查询的接口、弹框标题、有哪些列等, 使用时需要用到 O2LovView 组件或其变体, 组件会根据传入的 lovCode 自动请求后端接口, 获取弹框中的列表配置, 并在用户点击后打开弹框
 
 ### Object/Picklist
 
@@ -203,6 +214,9 @@ Detail/
 
 - `$$lov` 与 `useGlobalConfig` 等常用工具 `common-tools.md`
 - 响应式丢失、性能优化等常见问题 `common-pitfalls.md`
+- v-model 语法糖详解 `v-model.md`
+- slots 使用说明 `slots.md`
+- scope-slots 使用说明 `scope-slots.md`
 
 页面模板
 

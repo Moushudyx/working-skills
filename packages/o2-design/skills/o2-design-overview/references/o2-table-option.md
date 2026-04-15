@@ -2,7 +2,7 @@
 
 useTableOption 用于创建 O2Table 的行为对象, 包含配置、状态、方法、钩子
 
-## 最小可用示例
+## 示例代码
 
 ```tsx
 import { O2ColumnInput, O2Table, designPage, useTableOption } from 'o2-design';
@@ -22,9 +22,9 @@ export default designPage(() => {
 });
 ```
 
-## 常用配置
+## 参数
 
-| 配置 | 类型 | 说明 |
+| 参数 | 类型 | 说明 |
 | --- | --- | --- |
 | keyField | string | 行唯一键 |
 | url | string/object | 查询与增删改地址 |

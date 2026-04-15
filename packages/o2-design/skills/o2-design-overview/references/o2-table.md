@@ -2,7 +2,7 @@
 
 O2Table 是 o2-design 列表主组件, 负责承接 useTableOption 并驱动查询、编辑、校验、分页等行为
 
-## 最小可用示例
+## 示例代码
 
 ```tsx
 import { O2ColumnInput, O2ColumnLov, O2Table, designO2Page, useTableOption } from 'o2-design';
@@ -22,9 +22,9 @@ export default designO2Page(() => {
 });
 ```
 
-## 高频配置
+## 参数
 
-| 配置 | 类型 | 默认 | 说明 |
+| 参数 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | url | string/object | - | 请求地址配置 |
 | keyField | string | id | 行唯一键字段 |

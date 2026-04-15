@@ -2,7 +2,7 @@
 
 O2Column 是所有 O2ColumnXxx 列组件的基础能力集合
 
-## 最小可用示例
+## 示例代码
 
 ```tsx
 import { O2Column, O2Table, designO2Page, useTableOption } from 'o2-design';

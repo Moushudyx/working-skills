@@ -5,14 +5,14 @@ O2Button 是业务页面中最常用的操作触发组件, 基于 choerodon-ui/p
 ## 示例代码
 
 ```tsx
-import { O2Button } from 'o2-design';
+import { O2Button, designPage } from 'o2-design';
 
-export default () => {
+export default designPage(() => {
   const handleSave = async () => {
     await Promise.resolve();
   };
 
-  return (
+  return () => (
     <>
       <O2Button color="primary" funcType="raised" onClick={() => void 0}>保存</O2Button>
       <O2Button color="default" funcType="flat" asyncHandler={handleSave}>异步保存</O2Button>
@@ -21,7 +21,7 @@ export default () => {
       </O2Button>
     </>
   );
-};
+});
 ```
 
 ## 参数
