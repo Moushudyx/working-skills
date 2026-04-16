@@ -1,0 +1,92 @@
+# 手动发布指定包到 NPM（自动发布异常时兜底）
+
+name: 🛠️ Manual publish package
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_path:
+        description: "要发布的包路径（例如 packages/c7n-ui）"
+        required: true
+        type: string
+      git_ref:
+        description: "发布使用的分支/Tag/提交（默认 master）"
+        required: false
+        default: "master"
+        type: string
+      dist_tag:
+        description: "npm dist-tag（默认 latest）"
+        required: false
+        default: "latest"
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: manual-publish-${{ github.event.inputs.package_path }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    environment: production
+
+    steps:
+      - name: 📋 Checkout code
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.inputs.git_ref }}
+          fetch-depth: 1
+
+      - name: 📦 Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: 🔎 Validate package
+        id: validate
+        shell: bash
+        run: |
+          set -euo pipefail
+          PKG_PATH="${{ github.event.inputs.package_path }}"
+
+          if [ ! -d "$PKG_PATH" ]; then
+            echo "Package directory not found: $PKG_PATH"
+            exit 1
+          fi
+
+          if [ ! -f "$PKG_PATH/package.json" ]; then
+            echo "package.json not found in: $PKG_PATH"
+            exit 1
+          fi
+
+          PKG_NAME=$(node -p "require('./$PKG_PATH/package.json').name")
+          PKG_VERSION=$(node -p "require('./$PKG_PATH/package.json').version")
+
+          echo "Publishing $PKG_NAME@$PKG_VERSION from $PKG_PATH"
+          echo "name=$PKG_NAME" >> "$GITHUB_OUTPUT"
+          echo "version=$PKG_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: 🚀 Publish package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          PKG_PATH="${{ github.event.inputs.package_path }}"
+          DIST_TAG="${{ github.event.inputs.dist_tag }}"
+
+          cd "$PKG_PATH"
+          npm publish --access public --provenance --tag "$DIST_TAG"
+
+      - name: ✅ Summary
+        shell: bash
+        run: |
+          echo "Published: ${{ steps.validate.outputs.name }}@${{ steps.validate.outputs.version }}"
+          echo "Tag: ${{ github.event.inputs.dist_tag }}"
+          echo "Ref: ${{ github.event.inputs.git_ref }}"
