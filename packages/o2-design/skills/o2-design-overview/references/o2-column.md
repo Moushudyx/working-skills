@@ -50,6 +50,8 @@ export default designO2Page(() => {
 | formEditorOrder | number | - | 表单编辑顺序 |
 | formEditorProps | object/function | - | 表单编辑组件额外属性(注意与 editProps 区分, 这里的属性作用于表单编辑时的 O2FormItem 组件上) |
 
+校验规则见 `./validation.md`。
+
 ## 公共作用域插槽
 
 | 插槽名 | 用途 | 参数 |

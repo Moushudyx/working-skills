@@ -4,47 +4,9 @@
 
 ## 最小模板
 
-```tsx
-import {
-  O2Button,
-  O2Form,
-  O2FormInput,
-  O2Table,
-  designO2Page,
-  reactive,
-  useFormOption,
-  useTableOption,
-} from 'o2-design';
+如无特殊说明, 相关文档放在 `references/page/` 目录中
 
-export default designO2Page(() => {
-  const state = reactive({ formData: { id: null, code: '', name: '' } });
-
-  const formOption = useFormOption({
-    formData: state.formData,
-  });
-
-  const lineOption = useTableOption({
-    url: '/api/demo/v1/item-lines',
-    queryFields: [],
-    columns: [],
-  });
-
-  const handleSave = async () => {
-    await formOption.submit();
-  };
-
-  return () => (
-    <>
-      <O2Form option={formOption}>
-        <O2FormInput field="code" label="编码" required />
-        <O2FormInput field="name" label="名称" required />
-      </O2Form>
-      <O2Table option={lineOption} />
-      <O2Button asyncHandler={handleSave}>保存</O2Button>
-    </>
-  );
-});
-```
+- 标准详情页入口文件模板 `page-detail-template.md`
 
 ## 多表单场景
 
