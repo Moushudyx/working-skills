@@ -7,11 +7,13 @@
 如无特殊说明, 相关文档放在 `references/page/` 目录中
 
 - 标准详情页入口文件模板 `page/page-detail-template.md`
+- 详情页表单模板 `page/page-detail-form-template.md`
+- Tabs 场景下的详情页模板 `page/page-detail-tab-template.md`
 
 ## 多表单场景
 
-- 一个详情页多个表单时, 建议按业务块拆分 formData
-- 如果多个表单对应同一个记录内的数据, 可以共用一个 useFormOption, 统一校验、提交
+- 一个详情页多个表单时, 建议按业务块拆分, 见上文的详情页表单模板
+- 如果多个表单对应同一个记录内的数据, 应当共用一个 useFormOption, 统一校验、提交
 - 需要联动时, 通过共享 reactive state 或 provide/inject 传递上下文
 
 ## 详情页 Tabs 场景

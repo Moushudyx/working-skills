@@ -1,4 +1,4 @@
-```tsx
+```jsx
 // 示例: 课程管理列表页
 import React from 'react';
 import moment from 'moment'; // O2DatePicker 可能需要用到

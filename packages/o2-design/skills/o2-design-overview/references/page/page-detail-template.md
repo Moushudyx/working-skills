@@ -1,4 +1,4 @@
-```tsx
+```jsx
 // 示例: 课程管理详情页
 import React from 'react';
 import {
@@ -51,7 +51,7 @@ const Page = designO2Page((props) => {
     // defaultNewRow 和 state 推荐写在 useFormOptionSetup 中, 然后由这个 configs 带入
     ...configs,
     keyField: 'courseId', // useFormOptionSetup 返回的 configs 不会带上 keyField 所以这里需要再定义一遍
-    permission: 'o2.请填写菜单编码.course.ps.detail.button',
+    permission: '完整菜单编码.ps.detail.button',
     url: { base: () => `${prefix}/v1/${organizationId}/course` },
     // queryParams: {},
     // deepField: true, // 如果数据结构并非单层平铺，需启用 deep 模式
@@ -74,7 +74,12 @@ const Page = designO2Page((props) => {
         handler: () => methods.handlePublish(),
       },
     ],
-    // hooks: {},
+    hooks: {
+      onAfterLoad: () => {
+        // 数据加载完成后的逻辑
+        if (formOption.status !== 'insert') studentOption.methods.reload(); // 头数据加载完毕后查询行数据
+      },
+    },
   });
   setup(formOption); // 这一步不能少了, setup 方法会将 useFormOptionSetup 的功能与 formOption 链接
 
@@ -116,7 +121,7 @@ const Page = designO2Page((props) => {
   useBaseInfo({ useCollapse, formOption, methods /* , state */ });
   // Tab 信息
   const { useTabPane, renderTabs /* , setActiveKey */ } = useTabs();
-  useStudentInfo({ useTabPane, formOption, methods /* , state */ });
+  const { studentOption } = useStudentInfo({ useTabPane, formOption, methods /* , state */ });
 
   return () => (
     <>
