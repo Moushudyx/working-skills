@@ -139,3 +139,14 @@ editable={({ row }) => row.manual === 'Y'}
 - 复杂展示用 `O2Column + normal/head`。
 - 复杂编辑用 `O2Column + edit/form`。
 - 动态查询项优先用 `filter` 插槽。
+
+## 版本支持
+
+- `cascadeFields` 级联字段在 `1.6.30` 新增
+- `filter` 插槽在 `1.6.18` 新增
+- `formEditorOrder` 表单编辑顺序在 `1.5.9` 新增
+- `formEditorProps` 用于给表单编辑的FormItem传递额外参数在 `1.5.9` 新增
+- `disappearInFormEditor` 支持函数在 `1.6.61` 新增
+- `highlight` / `highlightRenderer` / `cellTooltip` 在 `1.6.45` 新增
+- `otherBodyCellProps` / `onCell` 在 `1.6.45` 新增
+- `allowEquals` 边界等于校验在 `1.6.25` 新增

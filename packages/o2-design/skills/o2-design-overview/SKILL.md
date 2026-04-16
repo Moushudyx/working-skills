@@ -214,6 +214,7 @@ Detail/
   - 多表单协作 `references/form/o2-form-option-multi-form.md`
 - 表格 `references/o2-table.md`
   - 表格 option(整合了表格的各种操作) `references/o2-table-option.md`
+    - 表格 hooks `references/table/table-hooks.md`
 - 表格列总览 `references/o2-column.md`
   - 列作用域插槽详解 `references/column/o2-column-scope-slots.md`
   - O2Column 变体文档放在 `references/column/` 目录中（例如 `references/column/o2-column-input.md`）

@@ -100,3 +100,12 @@ Edit 相关参数（disabled/readonly 等）由 EditProps 提供；当 option.ed
 
 - 检查 field 路径与真实数据结构是否一致。
 - 检查编辑组件是否使用 deepField 兼容写法。
+
+## 版本支持
+
+- `deepField` 深层字段模式在 `1.5.2` 新增
+- `formatFormData` 初始化补齐字段响应式在 `1.6.40` 新增
+- `commonItemProps` / `commonNativeProps` 在 `1.6.45` 新增
+- `onValidateError` 事件在 `1.6.46` 新增
+- `validateOnChange` 可单独设置在 `1.6.25` 起支持
+- `hideLabel` 在 `1.5.4` 起支持

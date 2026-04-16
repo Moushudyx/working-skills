@@ -6,7 +6,6 @@ O2ColumnImage 是图片列，normal 态展示缩略图，edit 态使用 O2ImageU
 
 - `../o2-image-upload.md`
 - `../o2-upload.md`
-- `../o2-upload.md`
 
 ## 示例代码
 

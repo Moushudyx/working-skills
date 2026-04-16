@@ -145,5 +145,8 @@ export default designPage(() => {
 ## 版本支持
 
 - `resetFilterWhenOpen` 在 `1.9.4` 新增。
-- `multipleConfig` 的 `maxTagCount/maxTagTextLength/maxTagPlaceholder` 在 `1.8.6` 与 `2.0.0-beta.3` 有增强记录。
+- `multipleConfig` 的 `maxTagCount/maxTagTextLength/maxTagPlaceholder` 在 `1.8.6` 首次引入，后续在 `2.0.0-beta.3` 进一步增强。
 - 多选 SQL 值集视图输入搜索参数修复在 `1.6.72`。
+- `enableAllPageCheck` 跨页全选在 `1.6.10` 新增。
+- `processTableOption` 在每次打开弹窗前修改 tableOption 在 `1.6.17` 新增。
+- `valueFiled` 旧拼写弃用，在 `1.5.4` 建议使用 `valueField`。

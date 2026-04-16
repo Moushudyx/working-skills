@@ -68,3 +68,16 @@ export default designPage(() => {
 
 - hooks 只在初始化 option 时生效
 - 创建后再替换 hooks 对象通常不会更新内部绑定
+
+## 版本支持
+
+- `deepField` 深层字段模式在 `1.5.2` 新增
+- `paging: false` 关闭分页功能在 `1.6.58` 新增（当时为 `paging` 配置）
+- `commonColumnProps` 在 `1.6.45` 新增
+- `buttons` 支持 `confirmType` 和 `confirmTitle` 在 `1.5.9` 起支持
+- `inlineMaxButtons` 行内按钮折叠在 `1.6.37` 新增
+- `operatorColumnProps` 在 `1.8.4` 新增
+- `onBeforeSubmit` / `onAfterSubmit` hooks 在 `1.6.59` 新增
+- `showAllPageCheck` 跨页全选在 `1.6.10` 新增
+- `rowDraggable` 行拖拽在 `1.6.50` 新增
+- `enableEditBoth` 同时新建和编辑在 `1.6.71` 新增
