@@ -6,8 +6,8 @@
 
 如无特殊说明, 相关文档放在 `references/page/` 目录中
 
-- 带有详情页的列表页模板 `page-list-template.md`
-- 只有列表页的模板 `page-list-only-template.md`（适用于没有详情页的单列表页场景）
+- 带有详情页的列表页模板 `page/page-list-template.md`
+- 只有列表页的模板 `page/page-list-only-template.md`（适用于没有详情页的单列表页场景）
 
 ## 开发要点
 

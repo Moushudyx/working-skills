@@ -2,7 +2,7 @@
 
 scope-slots 是带参数的插槽：子组件在渲染插槽时把上下文传给父组件。
 
-关于普通 slots 见 `references/slots.md`，它们的区别在于是否传递作用域参数。
+关于普通 slots 见 `slots.md`，它们的区别在于是否传递作用域参数。
 
 ## 基本概念
 

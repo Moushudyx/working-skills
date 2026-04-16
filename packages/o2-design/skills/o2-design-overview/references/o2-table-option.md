@@ -45,7 +45,7 @@ export default designPage(() => {
 | commonColumnProps | object/function | 全列通用 props |
 | rules | object | 列编辑校验规则 |
 
-关于 `enable` `hideButton` `buttons` 的说明请见 `./table/o2-table-button.md`
+关于 `enable` `hideButton` `buttons` 的说明请见 `./table/table-button.md`
 
 关于 hooks 的说明请见 `./table/table-hooks.md`
 

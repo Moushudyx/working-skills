@@ -2,7 +2,10 @@
 
 O2ColumnTextarea 是长文本列，normal 态支持点击弹窗查看全文。
 
-关联基础组件：`../o2-textarea.md`(弹框编辑)、`../o2-textarea-input.md`(行内编辑)
+关联基础组件：
+
+- `../o2-textarea.md`（弹框编辑）
+- `../o2-textarea-input.md`（行内编辑）
 
 ## 示例代码
 

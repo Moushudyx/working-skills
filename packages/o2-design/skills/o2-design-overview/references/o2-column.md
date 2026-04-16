@@ -109,29 +109,29 @@ editable={({ row }) => row.manual === 'Y'}
 
 | 组件 | 文档 | 对应基础组件 |
 | --- | --- | --- |
-| O2ColumnInput | `o2-column-input.md` | O2Input |
-| O2ColumnInputNumber | `o2-column-input-number.md` | O2InputNumber |
-| O2ColumnCurrency | `o2-column-currency.md` | O2Currency |
-| O2ColumnDatePicker | `o2-column-datepicker.md` | O2DatePicker |
-| O2ColumnSelect | `o2-column-select.md` | O2Select |
-| O2ColumnLov | `o2-column-lov.md` | O2Lov |
-| O2ColumnLovView | `o2-column-lov-view.md` | O2LovView |
-| O2ColumnSwitch | `o2-column-switch.md` | O2Switch, O2Lov |
-| O2ColumnCheckbox | `o2-column-checkbox.md` | O2Checkbox |
-| O2ColumnTextarea | `o2-column-textarea.md` | O2Textarea |
-| O2ColumnIntlField | `o2-column-intl-field.md` | O2IntlField |
-| O2ColumnJsonEditor | `o2-column-json-editor.md` | O2JsonEditor |
-| O2ColumnImage | `o2-column-image.md` | O2Picture, O2ImageUpload |
-| O2ColumnPicture | `o2-column-picture.md` | O2Picture |
-| O2ColumnAddress | `o2-column-address.md` | O2Address |
+| O2ColumnInput | `column/o2-column-input.md` | O2Input |
+| O2ColumnInputNumber | `column/o2-column-input-number.md` | O2InputNumber |
+| O2ColumnCurrency | `column/o2-column-currency.md` | O2Currency |
+| O2ColumnDatePicker | `column/o2-column-datepicker.md` | O2DatePicker |
+| O2ColumnSelect | `column/o2-column-select.md` | O2Select |
+| O2ColumnLov | `column/o2-column-lov.md` | O2Lov |
+| O2ColumnLovView | `column/o2-column-lov-view.md` | O2LovView |
+| O2ColumnSwitch | `column/o2-column-switch.md` | O2Switch, O2Lov |
+| O2ColumnCheckbox | `column/o2-column-checkbox.md` | O2Checkbox |
+| O2ColumnTextarea | `column/o2-column-textarea.md` | O2Textarea |
+| O2ColumnIntlField | `column/o2-column-intl-field.md` | O2IntlField |
+| O2ColumnJsonEditor | `column/o2-column-json-editor.md` | O2JsonEditor |
+| O2ColumnImage | `column/o2-column-image.md` | O2Picture, O2ImageUpload |
+| O2ColumnPicture | `column/o2-column-picture.md` | O2Picture |
+| O2ColumnAddress | `column/o2-column-address.md` | O2Address |
 
 ### 内部/框架列
 
 | 组件 | 文档 | 说明 |
 | --- | --- | --- |
-| O2ColumnOperator | `o2-column-operator.md` | 行内操作位布局列，封装按钮组渲染策略 |
-| O2ColumnCheck | `o2-column-check.md` | 勾选状态列，依赖 table option 的 check 状态机 |
-| O2ColumnGroup | `o2-column-group.md` | 分组表头容器，负责收集子列结构 |
+| O2ColumnOperator | `column/o2-column-operator.md` | 行内操作位布局列，封装按钮组渲染策略 |
+| O2ColumnCheck | `column/o2-column-check.md` | 勾选状态列，依赖 table option 的 check 状态机 |
+| O2ColumnGroup | `column/o2-column-group.md` | 分组表头容器，负责收集子列结构 |
 
 ## 常见选型建议
 

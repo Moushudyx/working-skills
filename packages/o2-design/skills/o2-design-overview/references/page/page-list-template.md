@@ -1,11 +1,12 @@
 ```tsx
-// 这里用某项目的真实案例 课程管理列表页
+// 示例: 课程管理列表页
 import React from 'react';
 import moment from 'moment'; // O2DatePicker 可能需要用到
 import {
   // designO2Page,
   designKeepAlivePage,
   O2Table,
+  O2Column,
   O2ColumnInput,
   O2ColumnLov,
   O2ColumnLovView,
@@ -18,8 +19,7 @@ import {
   useTableOption,
   // watch,
 } from 'o2-design';
-// import { useLocation } from 'react-router'; // 用于实现监听页面跳转
-// O2ButtonCollapse 用于实现超过 5 个按钮时折叠多于按钮的逻辑
+// import { useLocation } from 'react-router';
 // import O2ButtonCollapse from 'o2Components/O2ButtonCollapse';
 import formatterCollections from 'utils/intl/formatterCollections';
 import intl from 'utils/intl';
@@ -27,7 +27,7 @@ import { getCurrentOrganizationId, getResponse } from 'utils/utils';
 import { O2MD_M } from 'o2Utils/config';
 import ExcelExportPro from "components/ExcelExportPro"; // HZero 的导出组件
 
-// 服务编码 这里的 O2MD_M 是元数据模块的服务编码
+// 服务编码
 const prefix = `${O2MD_M}`;
 const organizationId = getCurrentOrganizationId();
 // 部分页面上可能存在特殊写法 getPlatformUrl
@@ -42,7 +42,6 @@ const organizationId = getCurrentOrganizationId();
 // designO2Page 上可以使用 usePageTitle、usePageOperator 这些模板页面才有的功能
 // designKeepAlivePage 则在 designO2Page 的基础上增加了页面缓存功能, 从别的路由跳回时会保留状态, 不会重新渲染
 const Page = designKeepAlivePage(({ history }) => {
-  // 页面标题
   usePageTitle(() => intl.get('o2.md.course.view.title.list').d('课程管理列表'));
 
   // 额外的页面操作按钮, 会被渲染在页面顶部
@@ -58,7 +57,7 @@ const Page = designKeepAlivePage(({ history }) => {
 
   const http = useHttp();
   // const state = reactive({});
-  // useTableOption 具体用法参考 `o2-table-option.md` 文档
+  // useTableOption 详见 `../o2-table-option.md`。
   const option = useTableOption({
     permission: '完整菜单编码.ps.button',
     url: { base: () => `${prefix}/v1/${organizationId}/course` },
@@ -70,47 +69,44 @@ const Page = designKeepAlivePage(({ history }) => {
     //   delete: true, // 默认删除按钮
     // },
     buttons: [
-      // 页面顶部的新建按钮
+      // 页面顶部按钮
       {
         type: 'other',
         code: 'create', // code 除了作为按钮标识之外, 也作为按钮权限标识的一部分, 拼接到 permission 上, 具体权限字符串为 `${permission}.${code}`
         // permissionCode: 'insert', // 如果需要单独控制权限, 可以使用 permissionCode 覆盖掉默认的 `${permission}.${code}`
         position: 'out',
         icon: 'add',
-        color: 'primary', // default: 默认颜色; primary: 主要按钮颜色
+        color: 'primary',
         label: '新建',
         handler: () => {
           methods.handleCreate();
         },
       },
-      // 页面顶部的其他按钮
       {
         position: 'out',
         type: 'other',
         code: 'publish',
-        // icon: '',
         label: intl.get('o2.md.course.button.publish').d('发布'),
         handler: () => methods.handlePublish(),
-        // disabled: () => xxxx,
+        // disabled: () => boolean,
       },
       {
         position: 'out',
         type: 'other',
         code: 'export',
-        // icon: '',
         label: intl.get('o2.md.course.button.export').d('导出'),
-        // 使用 render 自定义渲染时 handler 和 disabled 不生效, 需要在 render 里自己实现按钮的点击和禁用逻辑
+        // 使用 render 时，需要在 render 内自行处理点击与禁用。
         render: () => (
           <ExcelExportPro
             requestUrl={`${prefix}/v1/${organizationId}/course/export`}
-            queryParams={() => state.option.methods.getParams()} // 导出接口的查询参数, 很多导出接口会直接复用列表页的查询参数, 这里直接从 option 里拿到当前的查询参数
+            queryParams={() => option.methods.getParams()} // 导出接口的查询参数, 很多导出接口会直接复用列表页的查询参数, 这里直接从 option 里拿到当前的查询参数
             // method="POST" // 默认 GET 请求, 可以改为别的方法
             // allBody // 查询参数放在 body 上, 非 POST 请求无需此属性
             // otherButtonProps 可以自定义按钮属性
             otherButtonProps={{
               type: 'c7n-pro',
-              color: 'default', // 按钮颜色
-              icon: 'file_upload_black-o', // 图标
+              color: 'default',
+              icon: 'file_upload_black-o',
               permissionList: [
                 {
                   code: `完整菜单编码.ps.button.export`,
@@ -124,7 +120,7 @@ const Page = designKeepAlivePage(({ history }) => {
           />
         ),
       },
-      // 行上的详情按钮
+      // 行内按钮
       {
         type: 'other',
         code: 'detail',
@@ -133,7 +129,6 @@ const Page = designKeepAlivePage(({ history }) => {
         handler: ({ data }) => {
           methods.handleDetail(data);
         },
-        // disabled: () => {},
       },
     ],
   });
@@ -153,7 +148,6 @@ const Page = designKeepAlivePage(({ history }) => {
       // 这里可以做校验之类的 具体逻辑略
       // 标准接口失败时会返回 {failed: true, message: '错误信息'} 的格式, 可以通过 getResponse 来统一处理接口响应, 直接拿到成功时的数据, 失败时会自动报错并返回 null
       const res = getResponse(await http.post(`${prefix}/v1/${organizationId}/course/publish`, {
-        // 这里的接口传参只是示例, 具体要传什么参数要看接口定义
         type: 'batch',
         data: checked.map((item) => item.courseId),
       }));
@@ -179,8 +173,8 @@ const Page = designKeepAlivePage(({ history }) => {
     <>
       {/* commonColumnProps={{ tooltip: 'overflow', fit: true }} 是推荐写法, 意思是所有列都在内容溢出时显示 tooltip, 并且列宽自适应 */}
       <O2Table option={option} commonColumnProps={{ tooltip: 'overflow', fit: true }}>
-        {/* 列组件相关说明见 `../o2-column.md` */}
-        {/* O2Column 在非编辑态下与 O2ColumnInput 一致 */}
+        {/* 列组件说明见 `../o2-column.md` */}
+        {/* O2Column 非编辑态下展示与 O2ColumnInput 一致 */}
         <O2Column
           title={intl.get('o2.md.course.model.courseCode').d('课程编号')}
           field="courseCode"
@@ -252,6 +246,6 @@ const Page = designKeepAlivePage(({ history }) => {
     </>
   );
 });
-// 这里 formatterCollections 输入多语言前缀用于自动加载页面上需要的多语言内容
+// formatterCollections 自动加载对应前缀的多语言资源
 export default formatterCollections({ code: ['o2.md.course'] })(Page);
 ```

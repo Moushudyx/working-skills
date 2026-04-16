@@ -2,7 +2,7 @@
 
 slots 用于“父组件传结构，子组件决定位置”。
 
-关于 scope-slots 见 `references/scope-slots.md`，它们的区别在于是否传递作用域参数。
+关于 scope-slots 见 `scope-slots.md`，它们的区别在于是否传递作用域参数。
 
 ## 基本概念
 

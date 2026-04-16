@@ -185,53 +185,53 @@ Detail/
 
 组件
 
-- 按钮 `o2-button.md`
-- 输入框 `o2-input.md`
-- 数字输入 `o2-input-number.md`
-- 货币输入 `o2-currency.md`
-- 下拉选择 `o2-select.md`
-- 值集下拉 `o2-lov.md`
-- 值集视图 `o2-lov-view.md`
-- 对象选择 `o2-object.md`
-- 开关 `o2-switch.md`
-- 日期选择 `o2-datepicker.md`
-- 单选框 `o2-radio.md`
-- 复选框 `o2-checkbox.md`
-- 地址选择 `o2-address.md`
-- 文本域 `o2-textarea.md`
-- 弹框文本域 `o2-textarea-input.md`
-- 多语言输入 `o2-intl-field.md`
-- Json 编辑器 `o2-json-editor.md`
-- 富文本编辑器 `o2-rich-editor.md`（包含多语言富文本衍生能力说明）
-- 文件上传 `o2-upload.md`（包含图片上传衍生能力说明）
-- 表单容器 `o2-form.md`
+- 按钮 `references/o2-button.md`
+- 输入框 `references/o2-input.md`
+- 数字输入 `references/o2-input-number.md`
+- 货币输入 `references/o2-currency.md`
+- 下拉选择 `references/o2-select.md`
+- 值集下拉 `references/o2-lov.md`
+- 值集视图 `references/o2-lov-view.md`
+- 对象选择 `references/o2-object.md`
+- 开关 `references/o2-switch.md`
+- 日期选择 `references/o2-datepicker.md`
+- 单选框 `references/o2-radio.md`
+- 复选框 `references/o2-checkbox.md`
+- 地址选择 `references/o2-address.md`
+- 文本域 `references/o2-textarea.md`
+- 弹框文本域 `references/o2-textarea-input.md`
+- 多语言输入 `references/o2-intl-field.md`
+- Json 编辑器 `references/o2-json-editor.md`
+- 富文本编辑器 `references/o2-rich-editor.md`（包含多语言富文本衍生能力说明）
+- 文件上传 `references/o2-upload.md`（包含图片上传衍生能力说明）
+- 表单容器 `references/o2-form.md`
   - 自动表单组件族 `references/form/o2-form-components.md`
   - 布局与渲染 `references/form/o2-form-layout-and-render.md`
-- 表单字段容器 `o2-form-item.md`
-- 表单 option `o2-form-option.md`
+- 表单字段容器 `references/o2-form-item.md`
+- 表单 option `references/o2-form-option.md`
   - hooks `references/form/o2-form-option-hooks.md`
   - buttons `references/form/o2-form-option-buttons.md`
   - 多表单协作 `references/form/o2-form-option-multi-form.md`
-- 表格 `o2-table.md`
-  - 表格 option(整合了表格的各种操作) `o2-table-option.md`
-- 表格列总览 `o2-column.md`
+- 表格 `references/o2-table.md`
+  - 表格 option(整合了表格的各种操作) `references/o2-table-option.md`
+- 表格列总览 `references/o2-column.md`
   - 列作用域插槽详解 `references/column/o2-column-scope-slots.md`
   - O2Column 变体文档放在 `references/column/` 目录中（例如 `references/column/o2-column-input.md`）
-  - 变体索引与“常用列/内部列”关系在 `o2-column.md` 中维护
+  - 变体索引与“常用列/内部列”关系在 `references/o2-column.md` 中维护
 
 工具与问题
 
-- `$$lov` 与 `useGlobalConfig` 等常用工具 `common-tools.md`
-- 响应式丢失、性能优化等常见问题 `common-pitfalls.md`
-- 表单/表格统一校验规则 `validation.md`
-- v-model 语法糖详解 `v-model.md`
-- slots 使用说明 `slots.md`
-- scope-slots 使用说明 `scope-slots.md`
+- `$$lov` 与 `useGlobalConfig` 等常用工具 `references/common-tools.md`
+- 响应式丢失、性能优化等常见问题 `references/common-pitfalls.md`
+- 表单/表格统一校验规则 `references/validation.md`
+- v-model 语法糖详解 `references/v-model.md`
+- slots 使用说明 `references/slots.md`
+- scope-slots 使用说明 `references/scope-slots.md`
 
 页面模板
 
-- 列表页 `page-list.md`
-- 详情页 `page-detail.md`
+- 列表页 `references/page-list.md`
+- 详情页 `references/page-detail.md`
 
 ## 开发流程
 

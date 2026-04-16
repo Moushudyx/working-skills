@@ -6,7 +6,7 @@
 
 如无特殊说明, 相关文档放在 `references/page/` 目录中
 
-- 标准详情页入口文件模板 `page-detail-template.md`
+- 标准详情页入口文件模板 `page/page-detail-template.md`
 
 ## 多表单场景
 

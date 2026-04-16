@@ -4,7 +4,10 @@ O2ColumnCheck 是勾选列（行勾选/全选/跨页全选），由表格 check 
 
 类型：内部/框架列（与 table check 状态机绑定，不作为业务字段列）。
 
-关联基础组件：`../o2-table.md`、`../o2-checkbox.md`
+关联基础组件：
+
+- `../o2-table.md`
+- `../o2-checkbox.md`
 
 ## 示例代码
 

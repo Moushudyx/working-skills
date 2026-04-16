@@ -1,5 +1,5 @@
 ```tsx
-// 这里用某项目的真实案例 课程管理详情页
+// 示例: 课程管理详情页
 import React from 'react';
 import {
   designO2Page,
@@ -8,19 +8,17 @@ import {
   useFormOption,
   useHttp,
 } from 'o2-design';
-// import { useLocation } from 'react-router'; // 用于实现监听页面跳转
-// O2ButtonCollapse 用于实现超过 5 个按钮时折叠多于按钮的逻辑
-// import O2ButtonCollapse from 'o2Components/O2ButtonCollapse';
+// import { useLocation } from 'react-router';
+// import O2ButtonCollapse from 'o2Components/O2ButtonCollapse'; // 超过 5 个按钮时可折叠
 import formatterCollections from 'utils/intl/formatterCollections';
 import intl from 'utils/intl';
-import { getCurrentOrganizationId } from 'utils/utils';
+import { getCurrentOrganizationId, getResponse } from 'utils/utils';
 import { O2MD_M } from 'o2Utils/config';
 import { useFormOptionSetup, useTabs } from 'o2Utils';
-import ExcelExportPro from "components/ExcelExportPro"; // HZero 的导出组件
 import { useBaseInfo } from './BaseInfo';
 import { useStudentInfo } from './Tabs/StudentList';
 
-// 服务编码 这里的 O2MD_M 是元数据模块的服务编码
+// 服务编码
 const prefix = `${O2MD_M}`;
 const organizationId = getCurrentOrganizationId();
 // 部分页面上可能存在特殊写法 getPlatformUrl
@@ -72,14 +70,11 @@ const Page = designO2Page((props) => {
       {
         type: 'other',
         code: 'publish',
-        // icon: '',
         label: intl.get('o2.md.course.button.publish').d('发布'),
         handler: () => methods.handlePublish(),
-        // disabled: () => xxxx,
       },
     ],
-    // hooks: {
-    // },
+    // hooks: {},
   });
   setup(formOption); // 这一步不能少了, setup 方法会将 useFormOptionSetup 的功能与 formOption 链接
 
@@ -95,7 +90,6 @@ const Page = designO2Page((props) => {
       // 这里可以做校验之类的 具体逻辑略
       // 标准接口失败时会返回 {failed: true, message: '错误信息'} 的格式, 可以通过 getResponse 来统一处理接口响应, 直接拿到成功时的数据, 失败时会自动报错并返回 null
       const res = getResponse(await http.post(`${prefix}/v1/${organizationId}/course/publish`, {
-        // 这里的接口传参只是示例, 具体要传什么参数要看接口定义
         type: 'single',
         data: data.courseId,
       }));
@@ -107,16 +101,13 @@ const Page = designO2Page((props) => {
       }
     },
   };
-  };
 
   // const state = reactive({});
 
   // onMounted(async () => {
-  //   // 新建状态
   //   if (formOption.status !== 'insert') {
-  //     // 从别的页面跳转过来, 需要根据路径上的 ID 获取数据之类的
   //     if (searchParams.has('xxxId')) {
-  //       // 用 searchParams.get('xxxId') 获取 ID
+  //       // const id = searchParams.get('xxxId');
   //     }
   //   }
   // });
@@ -127,9 +118,14 @@ const Page = designO2Page((props) => {
   const { useTabPane, renderTabs /* , setActiveKey */ } = useTabs();
   useStudentInfo({ useTabPane, formOption, methods /* , state */ });
 
-return () => <>{renderCollapses()}{renderTabs()}</>;
+  return () => (
+    <>
+      {renderCollapses()}
+      {renderTabs()}
+    </>
+  );
 });
-// 这里 formatterCollections 输入多语言前缀用于自动加载页面上需要的多语言内容
+// 自动加载页面多语言资源。
 export default formatterCollections({ code: ['o2.md.course'] })(Page);
 
 ```

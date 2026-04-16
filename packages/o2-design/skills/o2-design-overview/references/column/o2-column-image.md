@@ -2,7 +2,11 @@
 
 O2ColumnImage 是图片列，normal 态展示缩略图，edit 态使用 O2ImageUpload 进行上传。
 
-关联基础组件：`../o2-image-upload.md`、`../o2-upload.md`、`../o2-picture.md`
+关联基础组件：
+
+- `../o2-image-upload.md`
+- `../o2-upload.md`
+- `../o2-upload.md`
 
 ## 示例代码
 
