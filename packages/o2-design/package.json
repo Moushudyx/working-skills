@@ -11,7 +11,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["skill","moushu","o2-design"],
+  "keywords": ["skill","moushu","o2-design","skilio"],
   "author": "moushu",
   "license": "MIT",
   "bugs": {

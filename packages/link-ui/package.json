@@ -11,7 +11,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["skill","link-ui","skilio","moushu"],
+  "keywords": ["skill","link-ui","skilio","moushu","skilio"],
   "author": "moushu",
   "license": "MIT",
   "bugs": {

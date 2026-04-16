@@ -5,12 +5,13 @@
   "main": "index.js",
   "files": [
     "skills",
+    "skilio.md",
     "index.js"
   ],
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["skill","moushu","link-design"],
+  "keywords": ["skill","moushu","link-design","skilio"],
   "author": "moushu",
   "license": "MIT",
   "bugs": {
