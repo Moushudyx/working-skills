@@ -2,6 +2,8 @@
 
 scope-slots 是带参数的插槽：子组件在渲染插槽时把上下文传给父组件。
 
+关于普通 slots 见 `references/slots.md`，它们的区别在于是否传递作用域参数。
+
 ## 基本概念
 
 - 普通 slots 只传内容。
@@ -17,7 +19,7 @@ import { designComponent } from 'o2-design';
 
 export const MyList = designComponent({
   scopeSlots: {
-    item: (scope) => true,
+    item: (scope: { row: { id: number; name: string }; index: number }) => true,
   },
   setup({ scopeSlots }) {
     const rows = [
@@ -27,9 +29,11 @@ export const MyList = designComponent({
 
     return () => (
       <div>
-        {rows.map((row, index) => (
-          <div key={row.id}>{scopeSlots.item?.({ row, index }) || row.name}</div>
-        ))}
+        {/* scopeSlots.插槽名() 要传入参数而不是默认默认内容 */}
+        {/* scopeSlots.插槽名.isExist() 可以判断插槽是否存在 */}
+        {rows.map((row, index) => scopeSlots.item.isExist() ? (
+          <div key={row.id}>{scopeSlots.item({ row, index }) || row.name}</div>
+        ) : <div key={row.id}>{row.name}</div>)}
       </div>
     );
   },
@@ -63,10 +67,10 @@ export const MyList = designComponent({
 
 ### 作用域参数拿不到
 
-- 检查子组件是否在调用 `scopeSlots.xxx?.({...})` 时传了参数。
+- 检查子组件是否在调用 `scopeSlots.xxx({...})` 时传了参数。
 - 检查父组件函数签名是否与参数结构一致。
 
 ### 没传 scope-slot 时渲染为空
 
-- 组件内建议给 fallback：`scopeSlots.xxx?.(scope) || 默认渲染`。
+- 组件内建议给 fallback：`scopeSlots.xxx(scope) || 默认渲染`。
 - 对关键位（如表格单元格）不要只依赖外部插槽。

@@ -27,7 +27,10 @@ export default designO2Page(() => {
 | field | string | - | 字段名 |
 | width | number | 150 | 列宽 |
 | fixed | left/right | - | 固定列 |
-| autoFixedLeft/autoFixedRight | boolean | false | 自动左右固定 |
+| fit | boolean | false | 自动填充剩余宽度 |
+| align | left/center/right | - | 对齐方式 |
+| tooltip | none/always/overflow | 'none' | 气泡提示信息, 设为 overflow 时仅在内容溢出时显示 |
+| autoFixedLeft/autoFixedRight | boolean | false | 自动左右固定(跟随已有的固定列, 如果没有对应的固定列则不固定) |
 | order | number | - | 列排序权重 |
 | editable | boolean/function | null | 是否可编辑 |
 | formFilter | boolean | false | 是否作为查询项 |
@@ -36,30 +39,39 @@ export default designO2Page(() => {
 | filterConfig/defaultFilterConfig | object/function | - | 查询配置 |
 | rules | object/array | - | 校验规则 |
 | required | boolean/function | - | 必填规则 |
-| type/min/max/allowEquals | string/any | - | 常见校验扩展 |
-| hide | boolean | false | 隐藏列（常用于“仅查询字段”） |
+| type/min/max/allowEquals | string/any | - | 常见校验扩展, 其中 type 表示类型, min/max 表示最小/最大值, allowEquals 表示是否允许等于边界值 |
+| hide | boolean | false | 隐藏列（常用于“仅查询而不在列表中展示的字段”） |
 | disappearInFormEditor | boolean/function | false | 在表单编辑中隐藏 |
 | disappearInTable | boolean | false | 在表格区隐藏 |
 | tooltip/cellTooltip | string/function | none | 单元格提示策略 |
 | cascadeFields | string/string[] | - | 级联字段 |
 | disableWhenParentClear | boolean | true | 父字段清空后禁用 |
 | editProps | object/function | - | 透传编辑态组件额外属性 |
+| formEditorOrder | number | - | 表单编辑顺序 |
+| formEditorProps | object/function | - | 表单编辑组件额外属性(注意与 editProps 区分, 这里的属性作用于表单编辑时的 O2FormItem 组件上) |
 
 ## 公共作用域插槽
 
-| 插槽名 | 用途 |
-| --- | --- |
-| head | 标题单元格渲染 |
-| normal | 普通显示态渲染 |
-| edit | 行内编辑态渲染 |
-| form | 表单编辑态渲染 |
-| filter | 查询表单渲染 |
+| 插槽名 | 用途 | 参数 |
+| --- | --- | --- |
+| head | 标题单元格渲染 | { col: iColumnInfo; renderColumn: iRenderColumn; customizedTitle?: string } |
+| normal | 普通显示态渲染 | { row: any; editRow: any; sourceRow: any; node: iTableNode; col: iColumnInfo; renderColumn: iRenderColumn } |
+| edit | 行内编辑态渲染 | 同上 |
+| form | 表单编辑态渲染(渲染的是 O2FormItem 内的部分) | 同上 |
+| filter | 查询表单渲染 | { formData: PlainObject; col: iColumnInfo; toggleExpand: (expand?: boolean) => void; search: (forceSearch?: boolean) => Promise<void>; fto: iFilterTargetOption; } |
+
+其中：
+
+- `iColumnInfo` 是内部渲染时使用的列信息, 其上的 props 就是列的配置项 `iColumnProps`。
+- `iColumnProps` 是列的配置项类型，是作用域插槽的主要参数来源。
+- `iRenderColumn` 包含了 `iColumnProps` 并扩展了 `{ col: iColumnInfo; group: false; level: number; deepField?: boolean }`, 一般直接视为 `iColumnProps` 即可。
 
 回退顺序：
 
-- `form` 未提供时回退 `edit`
-- `edit` 未提供时回退 `normal`
+- 表单编辑态优先使用 `form` 未提供时回退 `edit` (后续回退与下一条一致)
+- 行内编辑态优先使用 `edit` 未提供时使用列组件自己的编辑态, 如果均没有则回退 `normal`
 - `normal` 未提供时回退默认字段展示
+- `filter` 未提供时回退 `filterName` 参数定义的查询组件, 均没有则使用默认查询组件(O2Input)
 
 作用域插槽详解见 `./column/o2-column-scope-slots.md`。
 

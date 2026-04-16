@@ -2,6 +2,10 @@
 
 useTableOption 用于创建 O2Table 的行为对象, 包含配置、状态、方法、钩子
 
+关于 O2Table 的说明请见 `./o2-table.md`
+
+关于列组件的说明请见 `./o2-column.md`
+
 ## 示例代码
 
 ```tsx
@@ -28,15 +32,22 @@ export default designPage(() => {
 | --- | --- | --- |
 | keyField | string | 行唯一键 |
 | url | string/object | 查询与增删改地址 |
-| editType | inline/form | 行内编辑或表单编辑 |
-| defaultNewRow | object/function | 新增默认值 |
-| rules | object | 列编辑校验规则 |
-| buttons | array | 额外按钮配置 |
 | queryParams | object/function | 查询附加参数 |
+| editType | inline/form | 行内编辑或表单编辑, 默认 5 列内使用行内编辑模式 |
+| defaultNewRow | object/function | 新增默认值 |
+| enable | boolean/{insert: boolean, update: boolean, delete: boolean} | 是否启用默认的增删改功能 |
+| hideButton | {[buttonCode]: boolean} | 隐藏按钮, 如 { insert: true } 隐藏默认的新增按钮 |
+| buttons | array | 额外按钮配置 |
 | multipleCheck/singleCheck | boolean | 勾选模式 |
 | deepField | boolean | 链式字段模式 |
+| hooks | object | option 钩子 |
+| pagination | boolean/object | 分页配置，传 false 可关闭分页 |
 | commonColumnProps | object/function | 全列通用 props |
-| hooks | object | option 生命周期钩子 |
+| rules | object | 列编辑校验规则 |
+
+关于 `enable` `hideButton` `buttons` 的说明请见 `./table/o2-table-button.md`
+
+关于 hooks 的说明请见 `./table/table-hooks.md`
 
 ## 常用方法
 
