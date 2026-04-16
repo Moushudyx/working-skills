@@ -9,6 +9,21 @@
 - 带有详情页的列表页模板 `page/page-list-template.md`
 - 只有列表页的模板 `page/page-list-only-template.md`（适用于没有详情页的单列表页场景）
 
+## 代码文件结构
+
+```
+packages/
+└── 子模块名/
+    ├── config/
+    │   └── config.ts # 页面需要写在这里, 包括页面路由、代码文件路径
+    └── src/
+        └── routes/
+            └── 页面编码(大驼峰)/ # 页面文件放在这里
+                ├── List/ # 列表页
+                │   └── index.js # 列表页入口文件, 虽然是 .js 但确实是 jsx 格式的
+                └── Detail/ # 详情页
+```
+
 ## 开发要点
 
 - useTableOption 和生命周期函数必须在 setup 中调用
