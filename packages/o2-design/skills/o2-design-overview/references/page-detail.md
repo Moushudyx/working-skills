@@ -1,14 +1,18 @@
-﻿# 详情页模板（O2Form + 子表）
+﻿# 详情页
 
 适用场景: 新增/编辑/查看详情页, 或列表-详情结构的详情端
 
-## 最小模板
+关于列表页的搭建, 可以参考 `references/page-list.md` 文档
+
+## 标准模板
 
 如无特殊说明, 相关文档放在 `references/page/` 目录中
 
 - 标准详情页入口文件模板 `page/page-detail-template.md`
 - 详情页表单模板 `page/page-detail-form-template.md`
 - Tabs 场景下的详情页模板 `page/page-detail-tab-template.md`
+
+关于新建功能, 项目中的最佳实践是复用详情页组件, 将部分新建时用不到的功能隐藏, 参考 Tabs 场景下的详情页模板
 
 ## 多表单场景
 

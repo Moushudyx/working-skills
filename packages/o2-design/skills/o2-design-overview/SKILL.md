@@ -234,6 +234,8 @@ Detail/
 - 列表页 `references/page-list.md`
 - 详情页 `references/page-detail.md`
 
+限制: 如果要编写新页面(包括已有页面扩展子页面), 必须先读取 `references/page-new.md`
+
 ## 开发流程
 
 1. 必须先理解需求

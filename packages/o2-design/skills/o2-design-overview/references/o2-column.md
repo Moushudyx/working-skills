@@ -75,6 +75,10 @@ export default designO2Page(() => {
 - `normal` 未提供时回退默认字段展示
 - `filter` 未提供时回退 `filterName` 参数定义的查询组件, 均没有则使用默认查询组件(O2Input)
 
+最佳实践:
+
+- 对于一些需求特殊的列推荐使用 O2Column + scopeSlots 来实现(O2Column 默认没有编辑态)
+
 作用域插槽详解见 `./column/o2-column-scope-slots.md`。
 
 ## 特殊写法

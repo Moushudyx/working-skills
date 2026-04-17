@@ -2,6 +2,8 @@
 
 O2Table 是 o2-design 列表主组件, 负责承接 useTableOption 并驱动查询、编辑、校验、分页等行为
 
+当列表中存在查询功能时(某些列的 formFilter 属性为 true), O2Table 会自动生成一个查询表单, 该表单的字段由 formFilter=true 的列驱动, 表单位置在表格上方
+
 关于 useTableOption 的说明请见 `./o2-table-option.md`
 
 关于列组件的说明请见 `./o2-column.md`
@@ -39,14 +41,14 @@ export default designO2Page(() => {
 ## 行为关系
 
 - O2Table 必须接收 option, option 通常来自 useTableOption
-- 当 option.config.loadOnStart 为 true 时(默认为 true), 组件挂载后自动查询
+- 当 option 的 loadOnStart 为 false 时(默认为 true), 组件挂载后不会自动查询, 可以通过调用 option.methods.load() 来手动触发查询, 可以借此实现父子表等场景
 - 列的校验规则会在编辑变更时自动触发
 
 ## 常见问题
 
 ### 列表没有自动加载
 
-- 检查 option.config.loadOnStart 是否设为 false
+- 检查 option 的 loadOnStart 是否设为 false
 - 检查 option 初始化是否完成
 
 ### 编辑后校验不生效

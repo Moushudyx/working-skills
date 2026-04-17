@@ -35,8 +35,8 @@ export default designPage(() => {
 | queryParams | object/function | 查询附加参数 |
 | editType | inline/form | 行内编辑或表单编辑, 默认 5 列内使用行内编辑模式 |
 | defaultNewRow | object/function | 新增默认值 |
-| enable | boolean/{insert: boolean, update: boolean, delete: boolean} | 是否启用默认的增删改功能 |
-| hideButton | {[buttonCode]: boolean} | 隐藏按钮, 如 { insert: true } 隐藏默认的新增按钮 |
+| enable | boolean/{insert: boolean, update: boolean, delete: boolean} | 是否启用默认按钮 |
+| hideButton | {[buttonCode]: boolean} | 隐藏按钮 |
 | buttons | array | 额外按钮配置 |
 | multipleCheck/singleCheck | boolean | 勾选模式 |
 | deepField | boolean | 链式字段模式 |
@@ -51,11 +51,28 @@ export default designPage(() => {
 
 ## 常用方法
 
-- option.methods.load(): 查询列表
-- option.methods.insert(): 新增行
-- option.methods.update(node): 编辑行
-- option.methods.remove(node): 删除行
-- option.methods.save(node): 保存行
+- `option.methods.load(loadConfig?: { page: number; size: number })`: 查询列表(不传值则保持当前分页状态)
+- `option.methods.reload()`: 查询列表(回到第一页)
+- `option.methods.insert(newRow?: Record<string, unknown>, editType?: 'inline' | 'form')`: 新增行
+- `option.methods.update(node?: iTableNode, editType?: 'inline' | 'form')`: 编辑行(不传 node 则默认编辑选中行)
+- `option.methods.delete(delConfig: { selectNode?: iTableNode | null; position: 'in' })`: 删除传入行或选中行
+- `option.methods.delete(delConfig: { position: 'out' })`: 批量删除多选行(没有开启多选则删除选中行)
+- `option.methods.save()`: 保存
+- `option.methods.cancel()`: 取消
+
+这里的 iTableNode 参考 `./table/table-button.md` 中关于行内按钮的说明, 一些行操作相关的 hooks 也能获取到这个格式的数据
+
+## 关于选中行与单选/多选行
+
+这几个是不同的概念:
+
+- 选中行 pickRow: 可以通过 option.state.pickRow 来获取(未查到数据时为 null, 查到数据时默认选中第一行), 代表当前被选中的行(通常是点击行时选中), 只能有一行被选中, 此功能是内置的无法关闭
+- 单选: 需要通过配置 singleCheck 来开启, 与 pickRow 同步
+- 多选: 需要通过配置 multipleCheck 来开启, 展示多选框列, 可以不选中任何行, 也可以选中多行
+
+pickRow 默认选中第一行的行为有 BUG 可能选不中, 如果需求必须选中第一行, 需要手动处理
+
+option.state 是响应式对象, 可以使用 watch/computed 来监听 option.state.pickRow 的变化, 但需要注意某些时候 pickRow 可能为 null
 
 ## 常见问题
 
