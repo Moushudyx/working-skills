@@ -120,3 +120,5 @@ export function exampleListDs(): DataSetProps {
 - 未校验即提交：`submit` 前缺 `validate`，导致后端报错。
 - 绑定路径错误：`bind: 'xxx.yyy'` 与实际字段结构不一致。
 - DataSet 在 render 中重复创建，导致状态重置。
+- fields 中的字段不能出现循环绑定, 也不能出现绑定值 `bind` 与自己的字段名 `name` 一致的情况, 否则导致页面无法正常渲染
+- 页面白屏, React error #31, 因为 DataSet 内部会使用 Decimal.js 对象处理高精度数字, 因此手写组件的 render、手动处理数据时(特别是展开、拷贝对象时)要注意操作数字字段不慎可能会出这个问题
