@@ -1,10 +1,11 @@
 {
   "name": "@moushu/o2-design",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "O2 design skills package",
   "main": "index.js",
   "files": [
     "skills",
+    "README.md",
     "skilio.md",
     "index.js"
   ],

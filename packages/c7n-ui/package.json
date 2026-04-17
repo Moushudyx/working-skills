@@ -1,10 +1,11 @@
 {
   "name": "@moushu/c7n-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Choerodon UI skills package",
   "main": "index.js",
   "files": [
     "skills",
+    "README.md",
     "skilio.md",
     "index.js"
   ],
