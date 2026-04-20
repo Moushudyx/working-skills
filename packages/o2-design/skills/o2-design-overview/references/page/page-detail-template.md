@@ -27,6 +27,7 @@ const organizationId = getCurrentOrganizationId();
 // 可用 import { isTenantRoleLevel } from "utils/utils"; 配合判断当前页面渲染在 true=租户层 false=平台层
 // 实际项目上, 除非有极其特殊的需求, 否则绝大部分页面都没有渲染在平台层的必要, 不过这里的 getPlatformUrl 还是可以作为一个工具函数来使用, 统一生成接口地址, 减少出错概率
 
+// 注意与 designPage 区分, 相关文档见 `references/component.md`
 const Page = designO2Page((props) => {
   // const searchParams = new URLSearchParams(props.location.search); // 页面路由的查询参数, 部分情况下用得上
   const http = useHttp();
@@ -47,6 +48,7 @@ const Page = designO2Page((props) => {
     // defaultNewRow: {}, // 推荐写在这里，会自动带入 configs.defaultNewRow 和 configs.state.formData 中
   });
 
+  // useFormOption 详见 `../o2-form-option.md`
   const formOption = useFormOption({
     // defaultNewRow 和 state 推荐写在 useFormOptionSetup 中, 然后由这个 configs 带入
     ...configs,
@@ -130,7 +132,7 @@ const Page = designO2Page((props) => {
     </>
   );
 });
-// 自动加载页面多语言资源。
+// 自动加载页面多语言资源
 export default formatterCollections({ code: ['o2.md.course'] })(Page);
 
 ```

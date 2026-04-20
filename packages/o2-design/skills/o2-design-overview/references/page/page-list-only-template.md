@@ -34,9 +34,7 @@ const organizationId = getCurrentOrganizationId();
 // 可用 import { isTenantRoleLevel } from "utils/utils"; 配合判断当前页面渲染在 true=租户层 false=平台层
 // 实际项目上, 除非有极其特殊的需求, 否则绝大部分页面都没有渲染在平台层的必要, 不过这里的 getPlatformUrl 还是可以作为一个工具函数来使用, 统一生成接口地址, 减少出错概率
 
-// 注意与 designPage 区分:
-// designPage 是不带任何功能的最基础的定义组件的方法(只能使用 useTableOption 和生命周期函数)
-// designO2Page 上可以使用 usePageTitle、usePageOperator 这些模板页面才有的功能
+// 注意与 designPage 区分, 相关文档见 `references/component.md`
 const Page = designO2Page(({ history }) => {
   // 页面标题
   usePageTitle(() => intl.get('o2.md.course.view.title.list').d('课程管理列表'));

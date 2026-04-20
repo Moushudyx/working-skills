@@ -36,11 +36,7 @@ const organizationId = getCurrentOrganizationId();
 // 可用 import { isTenantRoleLevel } from "utils/utils"; 配合判断当前页面渲染在 true=租户层 false=平台层
 // 实际项目上, 除非有极其特殊的需求, 否则绝大部分页面都没有渲染在平台层的必要, 不过这里的 getPlatformUrl 还是可以作为一个工具函数来使用, 统一生成接口地址, 减少出错概率
 
-// 这里使用的 designKeepAlivePage 是 o2-design 1.8.0 以后的才能使用的方法, 如果页面不需要缓存, 直接使用 designO2Page 即可
-// 注意与 designPage 区分:
-// designPage 是不带任何功能的最基础的定义组件的方法(只能使用 useTableOption 和生命周期函数)
-// designO2Page 上可以使用 usePageTitle、usePageOperator 这些模板页面才有的功能
-// designKeepAlivePage 则在 designO2Page 的基础上增加了页面缓存功能, 从别的路由跳回时会保留状态, 不会重新渲染
+// 这里使用的 designKeepAlivePage 是 o2-design 1.8.0 以后的才能使用的方法, 如果页面不需要缓存, 直接使用 designO2Page 即可, 相关文档见 `references/component.md`
 const Page = designKeepAlivePage(({ history }) => {
   usePageTitle(() => intl.get('o2.md.course.view.title.list').d('课程管理列表'));
 
@@ -57,7 +53,7 @@ const Page = designKeepAlivePage(({ history }) => {
 
   const http = useHttp();
   // const state = reactive({});
-  // useTableOption 详见 `../o2-table-option.md`。
+  // useTableOption 详见 `../o2-table-option.md`
   const option = useTableOption({
     permission: '完整菜单编码.ps.button',
     url: { base: () => `${prefix}/v1/${organizationId}/course` },

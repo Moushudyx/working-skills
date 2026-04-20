@@ -78,15 +78,17 @@ export default designPage(() => {
 
 ## methods
 
+调用方式 `option.methods.方法名`
+
 | 方法 | 说明 |
 | --- | --- |
-| refresh | 调 detail 重新加载数据 |
-| saveInsert | 新建保存（不做 validateAll） |
-| saveUpdate | 更新保存（不做 validateAll） |
-| save | 先 validateAll，再按 status 调 saveInsert/saveUpdate |
+| refresh | 重新加载数据 |
+| saveInsert | (内部方法)新建保存(不校验) |
+| saveUpdate | (内部方法)更新保存(不校验) |
+| save | 通用保存方法, 先 validateAll, 再按 status 调用 saveInsert/saveUpdate |
 | validateAll | 校验所有已注册 O2Form |
 | clearValidate | 清空所有已注册 O2Form 校验错误 |
-| openEdit | 进入编辑态并备份 formData |
+| openEdit | 进入编辑态(自动备份 formData) |
 | cancelEdit(stayEdit?) | 恢复备份并清理校验，可选择保留编辑态 |
 
 ## hooks
@@ -113,10 +115,10 @@ export default designPage(() => {
 
 ## 按钮机制
 
-- 内置标准按钮：编辑、取消、保存（按 status/editing 自动切换）。
-- 可通过 buttons 扩展 other 类型按钮。
-- 可通过 hideButton 隐藏按钮，通过 permission 走权限控制。
-- 默认优先放入 page operator；若 notPlaceButtonInPageOperator=true，则渲染在表单内部额外内容区。
+- 内置标准按钮：编辑、取消、保存（按 status/editing 自动切换）
+- 可通过 buttons 扩展 other 类型按钮
+- 可通过 hideButton 隐藏按钮，通过 permission 走权限控制
+- 默认优先放入 page operator；若 notPlaceButtonInPageOperator=true，则渲染在表单内部额外内容区
 
 ## 多表单协作
 
