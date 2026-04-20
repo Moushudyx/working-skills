@@ -222,6 +222,8 @@ Detail/
 
 工具与问题
 
+- `designComponent` `designPage` `designO2Page` `designKeepAlivePage` 等定义页面的基础方法 `references/component.md`
+  - `designComponent` 详解 `references/design-component.md`
 - `$$lov` 与 `useGlobalConfig` 等常用工具 `references/common-tools.md`
 - 响应式丢失、性能优化等常见问题 `references/common-pitfalls.md`
 - 表单/表格统一校验规则 `references/validation.md`
