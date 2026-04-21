@@ -70,4 +70,3 @@ export default designPage(() => {
 
 - `confirmTitle` 支持 ReactNode 类型在 `1.5.18` 起支持
 - `confirmType` 和 `confirmTitle` 用于行内按钮（O2Table 行内按钮由 `a` 标签替换为 O2Button）在 `1.6.37` 起支持
-

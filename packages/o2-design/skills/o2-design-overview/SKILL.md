@@ -225,6 +225,8 @@ Detail/
 - `designComponent` `designPage` `designO2Page` `designKeepAlivePage` 等定义页面的基础方法 `references/component.md`
   - `designComponent` 详解 `references/design-component.md`
 - `$$lov` 与 `useGlobalConfig` 等常用工具 `references/common-tools.md`
+- O2Modal 模态弹窗 `references/o2-modal.md`
+  - 如果页面使用了 o2-design, 那么强烈建议使用 O2Modal 来实现模态框
 - 响应式丢失、性能优化等常见问题 `references/common-pitfalls.md`
 - 表单/表格统一校验规则 `references/validation.md`
 - v-model 语法糖详解 `references/v-model.md`
@@ -241,7 +243,7 @@ Detail/
 ## 开发流程
 
 1. 必须先理解需求
-2. 查阅现有代码和文档, 确认如何实现需求
+2. 查阅现有代码和文档, 确认如何实现需求, 特别注意 o2-design 的版本差异
 3. 输出一份开发规划
 4. 执行开发规划
 5. 开发完成后审查代码, 并使用 lint 工具等保证代码质量

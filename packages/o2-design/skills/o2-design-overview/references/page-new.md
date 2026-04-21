@@ -92,3 +92,13 @@ export default extendParentConfig({
   },
 });
 ```
+
+## 常见场景
+
+### 点击按钮后弹框确认再继续下一步
+
+如果只是简单的二次确认, 可以使用 O2Button 的 confirmType="popconfirm" 或 confirmType="modal" 来实现, 详见 `references/o2-button.md` 中的 confirmType 相关部分
+
+### 开发时不知道字段取值、接口路径等
+
+使用 `// TODO [具体说明]` 的方式在代码中标记 TODO, 方便后续跟进完善, 取值/路径部分可以先留空或者写一个示例值, 但要明确这是个示例值需要后续替换
