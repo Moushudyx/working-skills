@@ -2,6 +2,8 @@
 
 O2Table 是 o2-design 列表主组件, 负责承接 useTableOption 并驱动查询、编辑、校验、分页等行为
 
+O2Table 组件不能单独使用, 必须传入 useTableOption 生成的 option 否则会报错
+
 当列表中存在查询功能时(某些列的 formFilter 属性为 true), O2Table 会自动生成一个查询表单, 该表单的字段由 formFilter=true 的列驱动, 表单位置在表格上方
 
 关于 useTableOption 的说明请见 `./o2-table-option.md`
@@ -34,7 +36,7 @@ export default designO2Page(() => {
 
 | 参数 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| option | object | - | useTableOption 返回的配置对象 |
+| option | object | - | (必填, 非常重要)useTableOption 返回的配置对象 |
 | commonColumnProps | object | - | 可以给所有列统一设置属性 |
 | otherTableProps | object | - | 其他表格属性, O2Table 基于 C7N 的 Table 组件 |
 

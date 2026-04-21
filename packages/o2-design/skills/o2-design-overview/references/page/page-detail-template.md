@@ -47,7 +47,7 @@ const Page = designO2Page((props) => {
     insertTitle: intl.get('o2.md.course.title.insert').d('新建课程管理'), // 新建状态下的页面标题
     // defaultNewRow: {}, // 推荐写在这里，会自动带入 configs.defaultNewRow 和 configs.state.formData 中
   });
-
+  // 优先使用 useTableOption/useFormOption 的按钮来实现页面顶部按钮的需求而不是 usePageOperator
   // useFormOption 详见 `../o2-form-option.md`
   const formOption = useFormOption({
     // defaultNewRow 和 state 推荐写在 useFormOptionSetup 中, 然后由这个 configs 带入

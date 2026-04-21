@@ -37,6 +37,7 @@ const Page = designO2Page(({ history }) => {
   usePageBackPath(() => '返回上一页的路径') // 返回 null 或者不使用此方法则不展示返回按钮
 
   // 额外的页面操作按钮, 会被渲染在页面顶部
+  // 优先使用 useTableOption/useFormOption 的按钮来实现页面顶部按钮的需求
   // usePageOperator((prev) => (
   //   <>
   //     {/* 这里的 prev 是其他地方渲染的按钮 */}

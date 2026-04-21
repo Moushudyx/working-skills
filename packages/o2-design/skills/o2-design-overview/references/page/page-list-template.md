@@ -41,7 +41,7 @@ const Page = designKeepAlivePage(({ history }) => {
   usePageTitle(() => intl.get('o2.md.course.view.title.list').d('课程管理列表'));
 
   // 额外的页面操作按钮, 会被渲染在页面顶部
-  // 多数情况下不需要, useTableOption 的 buttons 中, position 为 'out' 的按钮也会渲染在页面顶部, 可以满足绝大多数场景
+  // useTableOption 的 buttons 中, position 为 'out' 的按钮也会渲染在页面顶部, 优先使用 useTableOption 的按钮来实现页面顶部按钮的需求
   // usePageOperator((prev) => (
   //   <>
   //     {/* 这里的 prev 是其他地方渲染的按钮 */}
@@ -65,7 +65,7 @@ const Page = designKeepAlivePage(({ history }) => {
     //   delete: true, // 默认删除按钮
     // },
     buttons: [
-      // 页面顶部按钮
+      // position: 'out' 的按钮会渲染在页面顶部, 类似 usePageOperator 定义的按钮
       {
         type: 'other',
         code: 'create', // code 除了作为按钮标识之外, 也作为按钮权限标识的一部分, 拼接到 permission 上, 具体权限字符串为 `${permission}.${code}`

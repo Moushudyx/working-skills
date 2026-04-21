@@ -2,6 +2,8 @@
 
 为防止返工, 任何新页面的开发都必须按此文档流程进行, 包括非标准页面
 
+若无特殊情况, 必须参照页面模板而非现有页面开发
+
 关于列表页的搭建, 可以参考 `references/page-list.md` 文档
 
 关于详情页的搭建, 可以参考 `references/page-detail.md` 文档
@@ -60,6 +62,7 @@ export default extendParentConfig({
       path: "/o2om/single-page-demo", // 页面路由
       component: "@/routes/o2om/SinglePageDemo", // 默认读取其下的 index.js 作为入口文件, 也可以指定其他文件
       // @ 表示子模块的 src 目录下
+      // authorized: true, // 设为 true 表示此页面不受权限控制, 设为 true 的行为非常危险, 一般只在本地测试时使用, 默认为 false
     },
     // 列表-详情页示例
     {
